@@ -1,0 +1,46 @@
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Metro bundler cache
+.expo/
+.expo-shared/
+# iOS
+ios/Pods/
+ios/*.xcodeproj/project.xcworkspace/
+ios/build/
+ios/DerivedData/
+ios/*.pbxuser
+ios/*.mode1v3
+ios/*.mode2v3
+ios/.vscode/
+ios/*.xcuserdata
+ios/Podfile.lock
+
+# Android
+android/.gradle/
+android/app/build/
+android/app/release/
+android/build/
+android/app/.cxx/
+android/local.properties
+android/app/src/main/assets/index.android.bundle
+
+# Logs and debug files
+debug.log
+*.log
+
+# Cache and temporary files
+__tests__/coverage/
+*.tflite
+.vscode/
+.DS_Store
+.idea/
+*.iml
+
+# Firebase and sensitive files
+android/app/google-services.json
+ios/GoogleService-Info.plist
