@@ -21,21 +21,17 @@ const TabIcon: React.FC<TabIconProps> = ({
   focused,
 }) => {
   return (
-    <View className="items-center justify-center gap-2">
+    <View className="w-[70px] flex items-center justify-center">
       <Image
         source={focused ? icon : outlineIcon}
         resizeMode="contain"
-        className="w-8 h-8"
+        className="w-6 h-6"
         style={{ tintColor: color }}
       />
       <Text
-        className={` ${focused ? 'font-psemibold' : 'font-pregular'} text-xs`}
-        style={{
-          color: color,
-          textAlign: 'center',
-        }}
         numberOfLines={1}
-        ellipsizeMode="tail"
+        className={`text-xs text-center truncate ${focused ? 'font-semibold' : 'font-normal'}`}
+        style={{ color: color }}
       >
         {name}
       </Text>
@@ -48,18 +44,19 @@ const TabsLayout = () => {
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarActiveTintColor: '#FFA001',
-        tabBarInactiveTintColor: '#CDCDE0',
+         tabBarActiveTintColor: '#28A745', 
+         tabBarInactiveTintColor: '#6B6B6B',
         tabBarStyle: {
-          backgroundColor: '#161622',
-          height: 80,
+          backgroundColor: '#FFFFFF', 
+          borderTopColor: '#F5F5F5',
+          height: 90,
           justifyContent: 'center',
           alignItems: 'center',
           borderTopWidth: 0,
           shadowColor: 'transparent',
           elevation: 0,
-          paddingBottom: 10,
-        },
+          paddingTop: 10, 
+        }
       }}
     >
       <Tabs.Screen

@@ -38,9 +38,29 @@ const RootLayout = () => {
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      {/* Services Screens */}
       <Stack.Screen
-        name="search/[query]"
-        options={{ headerShown: false, headerBackButtonMenuEnabled: false }}
+        name="services/buy-airtime"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="services/buy-data" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="services/buy-electricity"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="services/buy-tv" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="services/buy-internet"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="services/buy-esim" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="services/buy-betting"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="services/more-services"
+        options={{ headerShown: false }}
       />
     </Stack>
   );
