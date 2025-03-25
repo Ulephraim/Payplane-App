@@ -30,7 +30,9 @@ const TabIcon: React.FC<TabIconProps> = ({
       />
       <Text
         numberOfLines={1}
-        className={`text-xs text-center truncate ${focused ? 'font-semibold' : 'font-normal'}`}
+        className={`text-xs text-center truncate ${
+          focused ? 'font-semibold' : 'font-normal'
+        }`}
         style={{ color: color }}
       >
         {name}
@@ -44,10 +46,10 @@ const TabsLayout = () => {
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
-         tabBarActiveTintColor: '#28A745', 
-         tabBarInactiveTintColor: '#6B6B6B',
+        tabBarActiveTintColor: '#007BFF',
+        tabBarInactiveTintColor: '#6B6B6B',
         tabBarStyle: {
-          backgroundColor: '#FFFFFF', 
+          backgroundColor: '#FFFFFF',
           borderTopColor: '#F5F5F5',
           height: 90,
           justifyContent: 'center',
@@ -55,8 +57,8 @@ const TabsLayout = () => {
           borderTopWidth: 0,
           shadowColor: 'transparent',
           elevation: 0,
-          paddingTop: 10, 
-        }
+          paddingTop: 10,
+        },
       }}
     >
       <Tabs.Screen
