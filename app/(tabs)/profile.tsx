@@ -1,5 +1,15 @@
-import React, { useState } from "react";
-import { View, Text, Image, Switch, ScrollView, TouchableOpacity, SafeAreaView } from "react-native";
+/** @format */
+
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  Switch,
+  ScrollView,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 
 export default function Profile() {
   const [darkMode, setDarkMode] = useState(false);
@@ -7,17 +17,24 @@ export default function Profile() {
   const [walletBalance, setWalletBalance] = useState(false);
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-100">
+    <SafeAreaView className="flex-1  bg-[#F5F5F5]">
+      <View className="pb-2">
+        <Text className="text-center text-xl font-bold my-4">Profile</Text>
+      </View>
       <ScrollView className="px-4">
         {/* Header */}
-        <Text className="text-center text-xl font-bold my-4">Profile</Text>
 
         {/* User Info */}
         <View className="flex-row bg-white p-4 rounded-lg items-center mb-4">
-          <Image source={{ uri: "https://via.placeholder.com/100" }} className="w-16 h-16 rounded-full mr-4" />
+          <Image
+            source={{ uri: 'https://via.placeholder.com/100' }}
+            className="w-16 h-16 rounded-full mr-4"
+          />
           <View>
             <Text className="text-lg font-bold">Ephraim Imhagbe</Text>
-            <Text className="text-gray-500">ephraimemmanuell92001@gmail.com</Text>
+            <Text className="text-gray-500">
+              ephraimemmanuell92001@gmail.com
+            </Text>
           </View>
         </View>
 
@@ -30,9 +47,24 @@ export default function Profile() {
         </Section>
 
         <Section title="Preference">
-          <ToggleItem icon="🌙" label="Dark Mode" state={darkMode} setState={setDarkMode} />
-          <ToggleItem icon="🔐" label="Biometrics" state={biometrics} setState={setBiometrics} />
-          <ToggleItem icon="💰" label="Wallet Balance" state={walletBalance} setState={setWalletBalance} />
+          <ToggleItem
+            icon="🌙"
+            label="Dark Mode"
+            state={darkMode}
+            setState={setDarkMode}
+          />
+          <ToggleItem
+            icon="🔐"
+            label="Biometrics"
+            state={biometrics}
+            setState={setBiometrics}
+          />
+          <ToggleItem
+            icon="💰"
+            label="Wallet Balance"
+            state={walletBalance}
+            setState={setWalletBalance}
+          />
         </Section>
 
         <Section title="Privacy & Security">
@@ -62,7 +94,7 @@ const Section = ({ title, children }) => (
 );
 
 // Profile Item Component
-const ProfileItem = ({ icon, label, textColor = "text-black" }) => (
+const ProfileItem = ({ icon, label, textColor = 'text-black' }) => (
   <TouchableOpacity className="flex-row justify-between items-center py-3">
     <Text className="text-lg">{icon}</Text>
     <Text className={`flex-1 ml-3 text-lg ${textColor}`}>{label}</Text>
@@ -75,6 +107,11 @@ const ToggleItem = ({ icon, label, state, setState }) => (
   <View className="flex-row justify-between items-center py-3">
     <Text className="text-lg">{icon}</Text>
     <Text className="flex-1 ml-3 text-lg">{label}</Text>
-    <Switch value={state} onValueChange={setState} />
+    <Switch
+      value={state}
+      onValueChange={setState}
+      trackColor={{ false: '#D1D5DB', true: '#007BFF' }}
+      thumbColor={state ? '#ffffff' : '#9CA3AF'}
+    />
   </View>
 );
