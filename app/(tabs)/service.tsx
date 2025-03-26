@@ -1,8 +1,9 @@
 /** @format */
 
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import icons from '../../constants/icons';
 
 const service = () => {
   return (
@@ -10,9 +11,17 @@ const service = () => {
       {/* Header */}
       <View className="flex-row justify-between items-center mt-4">
         <Text className="text-black text-xl font-bold">Loan</Text>
-        <View className="flex-row space-x-4">
-          <Text className="text-gray-600 text-lg">🎧</Text>
-          <Text className="text-gray-600 text-lg">⋮</Text>
+        <View className="flex-row gap-6">
+          <Image
+            source={icons.customerCare}
+            resizeMode="contain"
+            className="w-5 h-5"
+          />
+          <Image
+            source={icons.options}
+            resizeMode="contain"
+            className="w-5 h-5"
+          />
         </View>
       </View>
 
@@ -25,8 +34,12 @@ const service = () => {
         </View>
 
         <View className="p-4">
-          <View className="flex-row items-center">
-            <Text className="text-[#007BFF] text-lg mr-2">📄</Text>
+          <View className="flex-row items-center gap-2">
+            <Image
+              source={icons.payment}
+              resizeMode="contain"
+              className="w-5 h-5"
+            />
             <Text className="text-black font-bold text-lg">Cash Loan</Text>
           </View>
 

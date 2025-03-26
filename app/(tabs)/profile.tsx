@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
+import icons from '../../constants/icons';
 
 export default function Profile() {
   const [darkMode, setDarkMode] = useState(false);
@@ -25,42 +26,53 @@ export default function Profile() {
         {/* Header */}
 
         {/* User Info */}
-        <View className="flex-row bg-white p-4 rounded-lg items-center mb-4">
-          <Image
-            source={{ uri: 'https://via.placeholder.com/100' }}
-            className="w-16 h-16 rounded-full mr-4"
-          />
+        <View className="flex-row bg-white p-4  gap-4 rounded-lg items-center mb-4">
+          <View
+            style={{
+              width: 54,
+              height: 54,
+              backgroundColor: '#f5f5f5',
+              borderRadius: 50,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Image
+              source={icons.profileUser}
+              resizeMode="contain"
+              className="w-5 h-5"
+            />
+          </View>
+
           <View>
             <Text className="text-lg font-bold">Ephraim Imhagbe</Text>
-            <Text className="text-gray-500">
-              ephraimemmanuell92001@gmail.com
-            </Text>
+            <Text className="text-gray-500">ephraimexample@gmail.com</Text>
           </View>
         </View>
 
         {/* Sections */}
         <Section title="Account">
-          <ProfileItem icon="👤" label="My Profile" />
-          <ProfileItem icon="📄" label="Reports" />
-          <ProfileItem icon="📩" label="Referrals" />
-          <ProfileItem icon="🎧" label="Help & Support" />
+          <ProfileItem icon={icons.profileUser} label="My Profile" />
+          <ProfileItem icon={icons.report} label="Reports" />
+          <ProfileItem icon={icons.send} label="Referrals" />
+          <ProfileItem icon={icons.customerCare} label="Help & Support" />
         </Section>
 
         <Section title="Preference">
           <ToggleItem
-            icon="🌙"
+            icon={icons.darkMode}
             label="Dark Mode"
             state={darkMode}
             setState={setDarkMode}
           />
           <ToggleItem
-            icon="🔐"
+            icon={icons.biometrics}
             label="Biometrics"
             state={biometrics}
             setState={setBiometrics}
           />
           <ToggleItem
-            icon="💰"
+            icon={icons.wallet}
             label="Wallet Balance"
             state={walletBalance}
             setState={setWalletBalance}
@@ -68,15 +80,22 @@ export default function Profile() {
         </Section>
 
         <Section title="Privacy & Security">
-          <ProfileItem icon="🔑" label="Reset Password" />
-          <ProfileItem icon="🔢" label="Reset 9jabillpoint PIN" />
-          <ProfileItem icon="🆔" label="Verify NIN" />
+          <ProfileItem icon={icons.security} label="Reset Password" />
+          <ProfileItem icon={icons.secure} label="Reset 9jabillpoint PIN" />
+          <ProfileItem icon={icons.verified} label="Verify NIN" />
         </Section>
 
         <Section title="More">
-          <ProfileItem icon="📜" label="Legal" />
-          <ProfileItem icon="🗑️" label="Deactivate/Delete Account" />
-          <ProfileItem icon="🚪" label="Logout" textColor="text-red-500" />
+          <ProfileItem icon={icons.stamp} label="Legal" />
+          <ProfileItem
+            icon={icons.deleteBtn}
+            label="Deactivate/Delete Account"
+          />
+          <ProfileItem
+            icon={icons.logout}
+            label="Logout"
+            textColor="text-red-500"
+          />
         </Section>
 
         <Text className="text-center text-xl  my-10">version 1.0.5 (14)</Text>
@@ -86,7 +105,7 @@ export default function Profile() {
 }
 
 // Section Component
-const Section = ({ title, children }) => (
+const Section = ({ title, children }: any) => (
   <View className="mt-4">
     <Text className="text-lg font-semibold text-gray-700 mb-2">{title}</Text>
     <View className="bg-white rounded-lg p-3">{children}</View>
@@ -94,18 +113,42 @@ const Section = ({ title, children }) => (
 );
 
 // Profile Item Component
-const ProfileItem = ({ icon, label, textColor = 'text-black' }) => (
-  <TouchableOpacity className="flex-row justify-between items-center py-3">
-    <Text className="text-lg">{icon}</Text>
+const ProfileItem = ({ icon, label, textColor = 'text-black' }: any) => (
+  <TouchableOpacity className="flex-row justify-between items-center py-3 px-2">
+    <View
+      style={{
+        width: 42,
+        height: 42,
+        backgroundColor: '#f5f5f5',
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Image source={icon} resizeMode="contain" className="w-5 h-5" />
+    </View>
+
     <Text className={`flex-1 ml-3 text-lg ${textColor}`}>{label}</Text>
-    <Text>➡️</Text>
+    <Image source={icons.rightArrow} resizeMode="contain" className="w-3 h-3" />
   </TouchableOpacity>
 );
 
 // Toggle Item Component
-const ToggleItem = ({ icon, label, state, setState }) => (
-  <View className="flex-row justify-between items-center py-3">
-    <Text className="text-lg">{icon}</Text>
+const ToggleItem = ({ icon, label, state, setState }: any) => (
+  <View className="flex-row justify-between items-center py-3 px-2">
+    <View
+      style={{
+        width: 42,
+        height: 42,
+        backgroundColor: '#f5f5f5',
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Image source={icon} resizeMode="contain" className="w-5 h-5" />
+    </View>
+
     <Text className="flex-1 ml-3 text-lg">{label}</Text>
     <Switch
       value={state}

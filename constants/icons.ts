@@ -23,6 +23,26 @@ import lightMode from '../assets/icons/sun.png';
 import telephone from '../assets/icons/telephone.png';
 import television from '../assets/icons/television.png';
 import data from '../assets/icons/wifi.png';
+import agreement from '../assets/icons/agreement.png';
+import back from '../assets/icons/back.png';
+import biometrics from '../assets/icons/biometrics.png';
+import coupon from '../assets/icons/coupon.png';
+import folder from '../assets/icons/folder.png';
+import customerCare from '../assets/icons/headset.png';
+import logout from '../assets/icons/logout.png';
+import darkMode from '../assets/icons/moon.png';
+import options from '../assets/icons/options.png';
+import security from '../assets/icons/padlock.png';
+import payment from '../assets/icons/payment.png';
+import resetPassword from '../assets/icons/pin-code.png';
+import profileUser from '../assets/icons/profile-user.png';
+import deleteBtn from '../assets/icons/recycle-bin.png';
+import report from '../assets/icons/report.png';
+import secure from '../assets/icons/secure.png';
+import send from '../assets/icons/send.png';
+import stamp from '../assets/icons/stamp.png';
+import verified from '../assets/icons/verified.png';
+import wallet from '../assets/icons/wallet.png';
 
 export default {
   home,
@@ -48,4 +68,24 @@ export default {
   telephone,
   television,
   data,
+  agreement,
+  back,
+  biometrics,
+  coupon,
+  folder,
+  customerCare,
+  logout,
+  darkMode,
+  options,
+  security,
+  payment,
+  resetPassword,
+  profileUser,
+  deleteBtn,
+  report,
+  secure,
+  send,
+  stamp,
+  verified,
+  wallet,
 };
