@@ -62,6 +62,7 @@ const RootLayout = () => {
         name="services/more-services"
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="+not-found" />
     </Stack>
   );
 };
