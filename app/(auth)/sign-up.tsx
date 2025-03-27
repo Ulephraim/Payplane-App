@@ -1,14 +1,10 @@
 /** @format */
 
-import { View, Text } from 'react-native';
-import React from 'react';
+import { View, Text, TextInput } from 'react-native';
+import React, { useState } from 'react';
 
 const SignUp = () => {
-  return (
-    <View>
-      <Text>sign-up</Text>
-    </View>
-  );
+  return <View></View>;
 };
 
 export default SignUp;

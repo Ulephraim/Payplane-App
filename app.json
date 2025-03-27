@@ -23,16 +23,10 @@
       "favicon": ""
     },
     "plugins": [
- 
-      [
-        "expo-splash-screen",
-        {
-          "image": "",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
-        }
-      ]
+      "expo-router",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "expo-splash-screen"
     ],
     "experiments": {
       "typedRoutes": true
