@@ -2,6 +2,7 @@
 import { useAuth } from '@/context/authProvider';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
+import icons from '../../constants/icons';
 import {
   Text,
   TextInput,
@@ -10,6 +11,7 @@ import {
   SafeAreaView,
   ActivityIndicator,
   View,
+  Image,
 } from 'react-native';
 
 const SignIn = () => {
@@ -19,6 +21,7 @@ const SignIn = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -26,11 +29,8 @@ const SignIn = () => {
     }
 
     setLoading(true);
-
     let response = await login(email, password);
-
     setLoading(false);
-    console.log('get results :', response);
 
     if (!response.success) {
       return Alert.alert('Sign In Error', response.msg);
@@ -38,54 +38,89 @@ const SignIn = () => {
 
     setEmail('');
     setPassword('');
-
     router.replace('/(tabs)/home');
-
     Alert.alert('Success', 'Login successfully!');
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white p-6">
-      <Text className="text-2xl font-bold text-center text-gray-900 mb-6">
-        Sign In
-      </Text>
+    <SafeAreaView className="flex-1 bg-white px-6">
+      {/* Content Wrapper */}
+      <View className="flex-1 justify-center p-6">
+        {/* Logo */}
+        <Image
+          source={icons.home}
+          className="w-12 h-12 mx-auto mb-4"
+          style={{ tintColor: '#007BFF' }}
+        />
+        <Text className="text-3xl font-bold text-center text-gray-900 mb-2">
+          Welcome Back
+        </Text>
+        <Text className="text-center text-xl text-gray-500 mb-6">
+          Sign in to continue
+        </Text>
 
-      <TextInput
-        className="w-full p-3 border border-gray-300 rounded-lg mb-3"
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
+        {/* Email Input */}
+        <View className="mb-4">
+          <Text className="mb-2">Email</Text>
+          <TextInput
+            className="w-full p-3 border border-gray-300 rounded-lg"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
 
-      <TextInput
-        className="w-full p-3 border border-gray-300 rounded-lg mb-3"
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+        {/* Password Input */}
+        <View className="mb-4">
+          <Text className="mb-2">Password</Text>
+          <View className="w-full flex-row items-center border border-gray-300 rounded-lg p-3">
+            <TextInput
+              className="flex-1"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
+            />
+            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+              <Image
+                source={showPassword ? icons.eye : icons.eyeHide}
+                className="w-6 h-6"
+                style={{ tintColor: '#007BFF' }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
 
-      {/* Submit Button */}
-      <TouchableOpacity
-        onPress={handleLogin}
-        className="bg-blue-600 p-4 rounded-lg mt-4"
-        disabled={loading}
-      >
-        {loading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text className="text-white text-lg font-semibold text-center">
-            Login
+        {/* Login Button */}
+        <TouchableOpacity
+          onPress={handleLogin}
+          className="bg-[#007BFF] p-4 rounded-lg mt-6"
+          disabled={loading}
+        >
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text className="text-white text-lg font-semibold text-center">
+              Login
+            </Text>
+          )}
+        </TouchableOpacity>
+
+        {/* Reset Password */}
+        <TouchableOpacity
+          onPress={() => router.push('/(auth)/forgot-password')}
+        >
+          <Text className="text-[#007BFF] font-semibold text-center mt-6">
+            Reset Password
           </Text>
-        )}
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
 
-      <View className="mt-4 flex-row justify-center">
+      {/* Push this to the bottom */}
+      <View className="flex-row justify-center items-center mb-6">
         <Text className="text-gray-600">Don't have an account? </Text>
         <TouchableOpacity onPress={() => router.push('/(auth)/sign-up')}>
-          <Text className="text-blue-600 font-semibold">Sign Up</Text>
+          <Text className="text-[#007BFF] font-semibold">Sign Up</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
