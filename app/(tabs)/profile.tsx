@@ -14,6 +14,7 @@ import {
 import icons from '../../constants/icons';
 import { useAuth } from '@/context/authProvider';
 import { useRouter } from 'expo-router';
+import LogoutModal from '@/components/LogoutModal';
 
 export default function Profile() {
   const [darkMode, setDarkMode] = useState(false);
@@ -22,10 +23,13 @@ export default function Profile() {
   const { userProfile, logout } = useAuth();
   const router = useRouter();
 
+  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
+
   const handleLogout = async () => {
     try {
       await logout();
-      router.replace('/(auth)/sign-in'); // Redirect to welcome after logout
+      setIsLogoutModalVisible(false);
+      router.replace('/(auth)/sign-in');
     } catch (error) {
       Alert.alert('Logout Failed', 'Something went wrong while logging out.');
     }
@@ -111,12 +115,19 @@ export default function Profile() {
             icon={icons.logout}
             label="Logout"
             textColor="text-red-500"
-            onPress={handleLogout}
+            onPress={() => setIsLogoutModalVisible(true)}
           />
         </Section>
 
         <Text className="text-center text-xl  my-10">version 1.0.5 (14)</Text>
       </ScrollView>
+
+      {/* Logout Modal */}
+      <LogoutModal
+        visible={isLogoutModalVisible}
+        onClose={() => setIsLogoutModalVisible(false)}
+        onConfirm={handleLogout}
+      />
     </SafeAreaView>
   );
 }
