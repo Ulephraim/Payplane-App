@@ -19,9 +19,11 @@ const Home = () => {
         onPress={() => {
           router.replace('/(auth)/sign-up');
         }}
-        className="w-full flex justify-end items-end p-5"
+        className="self-end rounded-full  p-2 px-6 bg-[#F5F5F5] mt-4 mr-4"
       >
-        <Text className="text-black text-md font-JakartaBold">Skip</Text>
+        <Text className="text-black text-md font-bold font-JakartaBold">
+          Skip
+        </Text>
       </TouchableOpacity>
 
       <Swiper
@@ -31,7 +33,7 @@ const Home = () => {
           <View className="w-[32px] h-[4px] mx-1 bg-[#E2E8F0] rounded-full" />
         }
         activeDot={
-          <View className="w-[32px] h-[4px] mx-1 bg-[#0286FF] rounded-full" />
+          <View className="w-[32px] h-[4px] mx-1 bg-[#007BFF] rounded-full" />
         }
         onIndexChanged={(index) => setActiveIndex(index)}
       >
@@ -60,9 +62,9 @@ const Home = () => {
             ? router.replace('/(auth)/sign-up')
             : swiperRef.current?.scrollBy(1)
         }
-        className="w-11/12 mt-10 mb-5"
+        className="w-3/4 py-3 px-6 mt-10 mb-5 flex justify-center items-center bg-[#007BFF] rounded-full "
       >
-        <Text className="text-lg font-bold">
+        <Text className="text-lg font-bold text-white">
           {isLastSlide ? 'Get Started' : 'Next'}
         </Text>
       </TouchableOpacity>

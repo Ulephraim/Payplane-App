@@ -9,13 +9,27 @@ import {
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 import icons from '../../constants/icons';
+import { useAuth } from '@/context/authProvider';
+import { useRouter } from 'expo-router';
 
 export default function Profile() {
   const [darkMode, setDarkMode] = useState(false);
   const [biometrics, setBiometrics] = useState(false);
   const [walletBalance, setWalletBalance] = useState(false);
+  const { userProfile, logout } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.replace('/(auth)/sign-in'); // Redirect to welcome after logout
+    } catch (error) {
+      Alert.alert('Logout Failed', 'Something went wrong while logging out.');
+    }
+  };
 
   return (
     <SafeAreaView className="flex-1  bg-[#F5F5F5]">
@@ -45,8 +59,10 @@ export default function Profile() {
           </View>
 
           <View>
-            <Text className="text-lg font-bold">Ephraim Imhagbe</Text>
-            <Text className="text-gray-500">ephraimexample@gmail.com</Text>
+            <Text className="text-lg font-bold">
+              {userProfile?.firstName} {userProfile?.lastName}
+            </Text>
+            <Text className="text-gray-500">{userProfile?.email}</Text>
           </View>
         </View>
 
@@ -95,6 +111,7 @@ export default function Profile() {
             icon={icons.logout}
             label="Logout"
             textColor="text-red-500"
+            onPress={handleLogout}
           />
         </Section>
 
@@ -113,8 +130,16 @@ const Section = ({ title, children }: any) => (
 );
 
 // Profile Item Component
-const ProfileItem = ({ icon, label, textColor = 'text-black' }: any) => (
-  <TouchableOpacity className="flex-row justify-between items-center py-3 px-2">
+const ProfileItem = ({
+  onPress,
+  icon,
+  label,
+  textColor = 'text-black',
+}: any) => (
+  <TouchableOpacity
+    className="flex-row justify-between items-center py-3 px-2"
+    onPress={onPress}
+  >
     <View
       style={{
         width: 42,

@@ -1,38 +1,26 @@
 /** @format */
 
-import onboarding1 from '../assets/images/onboarding1.png';
-import onboarding2 from '../assets/images/onboarding2.png';
-import onboarding3 from '../assets/images/onboarding3.png';
-import signUpCar from '../assets/images/signup-car.png';
-
-export const images = {
-  onboarding1,
-  onboarding2,
-  onboarding3,
-  signUpCar,
-};
-
 export const onboarding = [
   {
     id: 1,
-    title: 'The perfect ride is just a tap away!',
+    title: 'Pay Bills in Seconds!',
     description:
-      'Your journey begins with Ryde. Find your ideal ride effortlessly.',
-    image: images.onboarding1,
+      'Settle your electricity, water, and internet bills effortlessly from your phone, anytime, anywhere.',
+    image: require('../assets/images/onboarding1.jpg'),
   },
   {
     id: 2,
-    title: 'Best car in your hands with Ryde',
+    title: 'Get Loans When You Need Them!',
     description:
-      'Discover the convenience of finding your perfect ride with Ryde',
-    image: images.onboarding2,
+      'Access instant loans with flexible repayment options to support your financial goals.',
+    image: require('../assets/images/onboarding2.jpg'),
   },
   {
     id: 3,
-    title: "Your ride, your way. Let's go!",
+    title: 'Earn Rewards & Cashback!',
     description:
-      'Enter your destination, sit back, and let us take care of the rest.',
-    image: images.onboarding3,
+      'Every transaction earns you points! Redeem them for discounts, cashback, and exclusive offers.',
+    image: require('../assets/images/onboarding3.jpg'),
   },
 ];
 

@@ -5,6 +5,7 @@ import React from 'react';
 import icons from '../../constants/icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ServiceItem from '../../components/ServiceItem';
+import { useAuth } from '@/context/authProvider';
 
 const services: ServiceItem[] = [
   {
@@ -58,6 +59,14 @@ const services: ServiceItem[] = [
 ];
 
 const Home = () => {
+  const { userProfile } = useAuth();
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good Morning';
+    if (hour < 18) return 'Good Afternoon';
+    return 'Good Evening';
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-[#F5F5F5]-100 px-4">
       {/* Header */}
@@ -70,9 +79,9 @@ const Home = () => {
             className="w-12 h-12 rounded-full mr-3"
           />
           <View>
-            <Text className="text-gray-500 text-sm">Good Afternoon</Text>
+            <Text className="text-gray-500 text-sm">{getGreeting()}</Text>
             <Text className="text-black text-lg font-bold">
-              Ephraim imhagbe
+              {userProfile?.firstName} {userProfile?.lastName}
             </Text>
           </View>
         </View>
