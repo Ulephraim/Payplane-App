@@ -6,6 +6,7 @@ import icons from '../../constants/icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ServiceItem from '../../components/ServiceItem';
 import { useAuth } from '@/context/authProvider';
+import ImageSlider from '@/components/ImageSlider';
 
 const services: ServiceItem[] = [
   {
@@ -141,11 +142,8 @@ const Home = () => {
         </View>
 
         {/* Promo Banner */}
-        <View className="bg-white p-4 rounded-2xl mt-4">
-          <Image
-            source={{ uri: 'https://via.placeholder.com/300x100' }}
-            className="w-full h-24 rounded-xl"
-          />
+        <View className="p-2 mt-4">
+          <ImageSlider />
         </View>
 
         {/* Gift Card */}

@@ -1,4 +1,19 @@
 /** @format */
+import payplaneLogo from '../assets/images/payplane-logo.png';
+
+export default {
+  payplaneLogo,
+};
+
+export const sliderImages = [
+  { id: '1', src: require('../assets/images/payplaneAds1.jpg') },
+  { id: '2', src: require('../assets/images/payplaneAds2.jpg') },
+  { id: '3', src: require('../assets/images/payplaneAds3.jpg') },
+];
+
+export const sliderImagesData = {
+  sliderImages,
+};
 
 export const onboarding = [
   {

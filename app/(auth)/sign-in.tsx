@@ -13,6 +13,7 @@ import {
   View,
   Image,
 } from 'react-native';
+import images from '@/constants/images';
 
 const SignIn = () => {
   const { login } = useAuth();
@@ -48,9 +49,8 @@ const SignIn = () => {
       <View className="flex-1 justify-center p-6">
         {/* Logo */}
         <Image
-          source={icons.home}
-          className="w-12 h-12 mx-auto mb-4"
-          style={{ tintColor: '#007BFF' }}
+          source={images.payplaneLogo}
+          className="w-16 h-16 mx-auto mb-4"
         />
         <Text className="text-3xl font-bold text-center text-gray-900 mb-2">
           Welcome Back
