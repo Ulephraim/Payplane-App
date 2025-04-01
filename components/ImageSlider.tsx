@@ -1,81 +1,177 @@
 /** @format */
-
+import React, { useRef, useEffect, useState } from 'react';
+import {
+  View,
+  FlatList,
+  Dimensions,
+  StyleSheet,
+  Image,
+  ListRenderItem,
+} from 'react-native';
 import { sliderImages } from '@/constants/images';
-import React, { useRef, useState, useEffect } from 'react';
-import { View, FlatList, Image, Dimensions } from 'react-native';
 
-const { width: screenWidth } = Dimensions.get('window');
+const { width: windowWidth } = Dimensions.get('window');
 
 const ImageSlider = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true);
 
-  // Auto scroll every 3 seconds
+  const ITEM_WIDTH = windowWidth * 0.6;
+  const ITEM_HEIGHT = (ITEM_WIDTH * 9) / 16;
+  const SPACING = 10;
+  const AUTO_SCROLL_INTERVAL = 3000;
+  const PEEK_WIDTH = (windowWidth - ITEM_WIDTH) / 2;
+
+  const extendedData = [...sliderImages, ...sliderImages, ...sliderImages];
+
+  const initialOffset =
+    sliderImages.length * (ITEM_WIDTH + SPACING * 2) +
+    PEEK_WIDTH -
+    (windowWidth - ITEM_WIDTH) / 2;
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      const nextIndex = (activeIndex + 1) % sliderImages.length;
-      setActiveIndex(nextIndex);
+    if (!isAutoScrollEnabled) return;
 
-      flatListRef.current?.scrollToIndex({
-        index: nextIndex,
-        animated: true,
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const newIndex = prev + 1;
+
+        if (newIndex >= sliderImages.length * 2) {
+          flatListRef.current?.scrollToOffset({
+            offset: initialOffset,
+            animated: false,
+          });
+          return 0;
+        }
+
+        const nextOffset =
+          initialOffset + newIndex * (ITEM_WIDTH + SPACING * 2);
+
+        flatListRef.current?.scrollToOffset({
+          offset: nextOffset,
+          animated: true,
+        });
+
+        return newIndex;
       });
-    }, 3000);
+    }, AUTO_SCROLL_INTERVAL);
 
-    return () => clearInterval(interval);
-  }, [activeIndex]);
+    return () => clearInterval(timer);
+  }, [isAutoScrollEnabled]);
 
-  const renderItem = ({ item }: { item: (typeof sliderImages)[0] }) => {
-    return (
-      <View
-        className="mx-2.5 rounded-xl overflow-hidden"
-        style={{ width: screenWidth - 40 }}
-      >
-        <Image
-          source={item.src}
-          className="w-full h-full rounded-xl"
-          resizeMode="cover"
-        />
-      </View>
-    );
+  const handleScrollBegin = () => {
+    setIsAutoScrollEnabled(false);
   };
 
+  const handleScrollEnd = () => {
+    setTimeout(() => setIsAutoScrollEnabled(true), AUTO_SCROLL_INTERVAL);
+  };
+
+  const handleScroll = (event: any) => {
+    const contentOffset = event.nativeEvent.contentOffset.x;
+    const centerPosition = contentOffset + windowWidth / 2;
+
+    const itemPosition = (position: number) => {
+      return (
+        position * (ITEM_WIDTH + SPACING * 2) + ITEM_WIDTH / 2 + PEEK_WIDTH
+      );
+    };
+
+    let newIndex = Math.round(
+      (centerPosition - itemPosition(0)) / (ITEM_WIDTH + SPACING * 2)
+    );
+
+    if (newIndex < 0) {
+      newIndex = 0;
+    } else if (newIndex >= sliderImages.length * 3) {
+      newIndex = sliderImages.length * 3 - 1;
+    }
+
+    setCurrentIndex(newIndex % sliderImages.length);
+  };
+
+  const handleMomentumScrollEnd = (event: any) => {
+    const contentOffset = event.nativeEvent.contentOffset.x;
+    const centerPosition = contentOffset + windowWidth / 2;
+
+    if (centerPosition < sliderImages.length * (ITEM_WIDTH + SPACING * 2)) {
+      flatListRef.current?.scrollToOffset({
+        offset:
+          contentOffset + sliderImages.length * (ITEM_WIDTH + SPACING * 2),
+        animated: false,
+      });
+    } else if (
+      centerPosition >=
+      sliderImages.length * 2 * (ITEM_WIDTH + SPACING * 2)
+    ) {
+      flatListRef.current?.scrollToOffset({
+        offset:
+          contentOffset - sliderImages.length * (ITEM_WIDTH + SPACING * 2),
+        animated: false,
+      });
+    }
+
+    handleScrollEnd();
+  };
+
+  const renderItem: ListRenderItem<(typeof sliderImages)[0]> = ({ item }) => (
+    <View
+      style={[
+        styles.itemContainer,
+        {
+          width: ITEM_WIDTH,
+          height: ITEM_HEIGHT,
+          marginHorizontal: SPACING,
+        },
+      ]}
+    >
+      <Image source={item.src} style={styles.image} resizeMode="cover" />
+    </View>
+  );
+
   return (
-    <View className="my-4">
+    <View style={styles.container}>
       <FlatList
         ref={flatListRef}
-        data={sliderImages}
+        data={extendedData}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
         horizontal
-        pagingEnabled
         showsHorizontalScrollIndicator={false}
+        snapToInterval={ITEM_WIDTH + SPACING * 2}
         snapToAlignment="center"
-        snapToInterval={screenWidth - 20}
         decelerationRate="fast"
-        className="h-44" // Adjust height to match your design
-        contentContainerStyle={{ paddingHorizontal: 20 }}
-        onMomentumScrollEnd={(event) => {
-          const index = Math.round(
-            event.nativeEvent.contentOffset.x / (screenWidth - 20)
-          );
-          setActiveIndex(index);
+        initialScrollIndex={sliderImages.length}
+        onScrollBeginDrag={handleScrollBegin}
+        onScroll={handleScroll}
+        onMomentumScrollEnd={handleMomentumScrollEnd}
+        contentContainerStyle={{
+          paddingHorizontal: PEEK_WIDTH - SPACING,
         }}
+        getItemLayout={(_, index) => ({
+          length: ITEM_WIDTH + SPACING * 2,
+          offset: (ITEM_WIDTH + SPACING * 2) * index,
+          index,
+        })}
       />
-
-      {/* Indicators */}
-      <View className="flex-row justify-center mt-3">
-        {sliderImages.map((_, index) => (
-          <View
-            key={index}
-            className={`h-2 w-2 mx-1 rounded-full ${
-              index === activeIndex ? 'bg-primary' : 'bg-gray-300'
-            }`}
-          />
-        ))}
-      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 16,
+  },
+  itemContainer: {
+    borderRadius: 12,
+    overflow: 'hidden',
+    elevation: 5,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+});
 
 export default ImageSlider;

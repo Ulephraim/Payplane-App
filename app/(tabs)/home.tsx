@@ -69,7 +69,10 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[#F5F5F5]-100 px-4">
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      className="flex-1 bg-[#F5F5F5]-100 px-4"
+    >
       {/* Header */}
       <View className="flex-row justify-between items-center mt-4 pb-4">
         <View className="flex-row items-center">
@@ -142,7 +145,7 @@ const Home = () => {
         </View>
 
         {/* Promo Banner */}
-        <View className="p-2 mt-4">
+        <View>
           <ImageSlider />
         </View>
 
