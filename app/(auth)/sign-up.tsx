@@ -11,9 +11,9 @@ import {
   SafeAreaView,
   ActivityIndicator,
   View,
-  ScrollView,
   Image,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const SignUp = () => {
   const { register } = useAuth();
@@ -82,7 +82,7 @@ const SignUp = () => {
         <Image source={icons.back} className="w-6 h-6" />
       </TouchableOpacity>
 
-      <ScrollView className="mb-3 mt-3 px-4">
+      <KeyboardAwareScrollView className="mb-3 mt-3 px-4">
         <View className="mb-8">
           <Text className="text-2xl font-bold text-gray-900 mb-2">Sign Up</Text>
           <Text>Enter your details below to create your account</Text>
@@ -209,7 +209,7 @@ const SignUp = () => {
             </Text>
           )}
         </TouchableOpacity>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
