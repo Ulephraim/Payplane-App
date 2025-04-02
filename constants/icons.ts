@@ -12,8 +12,8 @@ import avatar from '../assets/icons/avatar.png';
 import bell from '../assets/icons/bell.png';
 import electricity from '../assets/icons/electricity.png';
 import esim from '../assets/icons/esim.png';
-import eye from '../assets/icons/eye-hide.png';
-import eyeHide from '../assets/icons/eye.png';
+import eyeHide from '../assets/icons/eye-hide.png';
+import eyeShow from '../assets/icons/eye.png';
 import betting from '../assets/icons/football.png';
 import internet from '../assets/icons/internet.png';
 import more from '../assets/icons/more.png';
@@ -57,8 +57,8 @@ export default {
   bell,
   electricity,
   esim,
+  eyeShow,
   eyeHide,
-  eye,
   betting,
   internet,
   more,

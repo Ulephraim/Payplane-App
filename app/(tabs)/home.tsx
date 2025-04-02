@@ -121,7 +121,7 @@ const Home = () => {
           <View className="flex-row gap-4">
             <Text className="text-white text-sm">Available Balance</Text>
             <Image
-              source={icons.eye}
+              source={icons.eyeShow}
               resizeMode="contain"
               className="w-5 h-5"
               style={{ tintColor: 'white' }}

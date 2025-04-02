@@ -101,7 +101,7 @@ export default function Profile() {
 
         <Section title="Privacy & Security">
           <ProfileItem icon={icons.security} label="Reset Password" />
-          <ProfileItem icon={icons.secure} label="Reset 9jabillpoint PIN" />
+          <ProfileItem icon={icons.secure} label="Reset Payplane PIN" />
           <ProfileItem icon={icons.verified} label="Verify NIN" />
         </Section>
 
@@ -119,7 +119,7 @@ export default function Profile() {
           />
         </Section>
 
-        <Text className="text-center text-xl  my-10">version 1.0.5 (14)</Text>
+        <Text className="text-center text-xl  my-10">version 1.0.0</Text>
       </ScrollView>
 
       {/* Logout Modal */}

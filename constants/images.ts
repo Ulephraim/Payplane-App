@@ -1,8 +1,29 @@
 /** @format */
 import payplaneLogo from '../assets/images/payplane-logo.png';
+import airtelLogo from '../assets/images/airtel.png';
+import mtnLogo from '../assets/images/MTN.png';
+import ninemobileLogo from '../assets/images/9mobile.png';
+import dstvLogo from '../assets/images/DSTV.png';
+import gotvLogo from '../assets/images/GOTV.png';
+import spectranetLogo from '../assets/images/spectranet.png';
+import showmaxLogo from '../assets/images/showmax.png';
+import startimesLogo from '../assets/images/startimes.png';
+import gloLogo from '../assets/images/GLO.png';
+
+const mtnnewLogo = require('../assets/images/mtn-new-logo.svg');
 
 export default {
   payplaneLogo,
+  airtelLogo,
+  mtnLogo,
+  ninemobileLogo,
+  dstvLogo,
+  gotvLogo,
+  spectranetLogo,
+  showmaxLogo,
+  startimesLogo,
+  gloLogo,
+  mtnnewLogo,
 };
 
 export const sliderImages = [

@@ -88,7 +88,7 @@ const SignIn = () => {
               />
               <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                 <Image
-                  source={showPassword ? icons.eye : icons.eyeHide}
+                  source={showPassword ? icons.eyeHide : icons.eyeShow}
                   className="w-6 h-6"
                   style={{ tintColor: '#007BFF' }}
                 />

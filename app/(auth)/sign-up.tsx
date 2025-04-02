@@ -142,13 +142,13 @@ const SignUp = () => {
             <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
               {showPassword ? (
                 <Image
-                  source={icons.eye}
+                  source={icons.eyeHide}
                   className="w-6 h-6 ml-2"
                   style={{ tintColor: '#007BFF' }}
                 />
               ) : (
                 <Image
-                  source={icons.eyeHide}
+                  source={icons.eyeShow}
                   className="w-6 h-6 ml-2"
                   style={{ tintColor: '#007BFF' }}
                 />
@@ -171,13 +171,13 @@ const SignUp = () => {
             >
               {showConfirmPassword ? (
                 <Image
-                  source={icons.eye}
+                  source={icons.eyeHide}
                   className="w-6 h-6 ml-2"
                   style={{ tintColor: '#007BFF' }}
                 />
               ) : (
                 <Image
-                  source={icons.eyeHide}
+                  source={icons.eyeShow}
                   className="w-6 h-6 ml-2"
                   style={{ tintColor: '#007BFF' }}
                 />

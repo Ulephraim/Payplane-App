@@ -46,14 +46,14 @@ const service = () => {
           <View className="flex-row justify-between mt-3">
             <View>
               <Text className="text-gray-500 text-sm">Loanable Amount</Text>
-              <Text className="text-black text-2xl font-bold">₦8,000</Text>
+              <Text className="text-black text-2xl font-bold">₦15,000</Text>
               <Text className="text-yellow-500 text-sm">
                 Daily interest 1.00%
               </Text>
             </View>
             <View>
               <Text className="text-gray-500 text-sm">Loan Period</Text>
-              <Text className="text-black text-2xl font-bold">25 Days</Text>
+              <Text className="text-black text-2xl font-bold">14 Days</Text>
             </View>
           </View>
 
@@ -67,10 +67,10 @@ const service = () => {
       <View className="bg-white p-4 rounded-2xl mt-4 flex-row justify-between items-center">
         <View className="flex-row items-center">
           <Text className="text-[#007BFF] text-lg mr-2">🛒</Text>
-          <Text className="text-gray-600 font-semibold">Flexi</Text>
+          <Text className="text-gray-600 font-semibold">Payuu</Text>
           <Text className="text-gray-400 ml-1">Buy Now, Pay Later</Text>
         </View>
-        <Text className="text-black font-bold">₦1,900</Text>
+        <Text className="text-black font-bold">₦3,000</Text>
       </View>
 
       {/* Loan Features */}
@@ -79,7 +79,7 @@ const service = () => {
         <View className="bg-white p-4 rounded-2xl w-[48%]">
           <Text className="text-black font-bold">Amount Increase</Text>
           <Text className="text-gray-500 text-sm mt-1">
-            Complete all tasks to earn up to ₦5000 credit increases
+            Complete all tasks to earn up to ₦10,000 credit increases
           </Text>
           <TouchableOpacity className="bg-[#007BFF] py-2 px-4 rounded-full mt-3 self-start">
             <Text className="text-white font-semibold">Go</Text>
@@ -100,8 +100,8 @@ const service = () => {
 
       {/* Footer */}
       <Text className="text-gray-500 text-center mt-6">
-        Flexi services are provided by{' '}
-        <Text className="font-bold text-black">Blooms MFB Ltd</Text>
+        Payuu services are provided by{' '}
+        <Text className="font-bold text-black">Payplane MFB Ltd</Text>
       </Text>
     </SafeAreaView>
   );

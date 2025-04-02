@@ -14,7 +14,7 @@ const Reward = () => {
 
       {/* Invite Text */}
       <Text className="text-[#007BFF] text-center text-lg font-semibold mt-4">
-        Invite friends to 9jaBillPoint to earn rewards
+        Invite friends to Payplane to earn rewards
       </Text>
 
       {/* Bonus Badge */}
