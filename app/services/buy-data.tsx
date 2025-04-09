@@ -1,6 +1,5 @@
 /** @format */
 
-// Keep your imports as-is
 import {
   View,
   Text,
