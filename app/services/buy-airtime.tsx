@@ -27,6 +27,7 @@ const AirtimeScreen = () => {
   const handleProviderSelect = (provider: ProviderKey) => {
     setSelectedProvider(provider);
   };
+
   const providerLogos: Record<ProviderKey, any> = {
     mtn: images.mtnLogo,
     airtel: images.airtelLogo,
@@ -45,14 +46,12 @@ const AirtimeScreen = () => {
           <Image source={icons.back} className="w-6 h-6" />
         </TouchableOpacity>
         <View className="flex-1 items-center -ml-10">
-          <Text className=" text-black text-lg font-bold ">Airtime</Text>
+          <Text className="text-black text-lg font-bold">Airtime</Text>
         </View>
       </View>
 
-      {/* Select Provider */}
-
-      {/* Select Provider */}
       <KeyboardAwareScrollView>
+        {/* Select Provider */}
         <Text className="text-black text-lg mt-6">Select service provider</Text>
         <View className="flex-row justify-between bg-white p-4 rounded-lg mt-2">
           {(['mtn', 'airtel', 'glo', '9mobile'] as ProviderKey[]).map(
