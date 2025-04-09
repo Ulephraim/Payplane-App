@@ -7,86 +7,138 @@ import {
   Image,
   TouchableOpacity,
   Switch,
+  TouchableWithoutFeedback,
+  Modal,
+  ScrollView,
 } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '../../constants/icons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useRouter } from 'expo-router';
 
-const BuyElectricity = () => {
+// Type for a biller
+type billerProps = {
+  label: string;
+};
+
+// Biller data
+const providerBillers: billerProps[] = [
+  { label: 'Ikeja electric payment - IKEDC' },
+  { label: 'Eko electric payment - EKEDC' },
+];
+
+const ElectricityScreen = () => {
+  const router = useRouter();
   const [isBeneficiary, setIsBeneficiary] = useState(false);
+  const [isBillerModalVisible, setIsBillerModalVisible] = useState(false);
+  const [selectedElectricCompany, setSelectedElectricCompany] =
+    useState<billerProps | null>(null);
 
   return (
     <SafeAreaView className="flex-1 bg-[#F5F5F5] px-4">
       {/* Header */}
       <View className="flex-row items-center mt-4 pb-4">
-        <TouchableOpacity>
+        <TouchableOpacity
+          className="w-10"
+          onPress={() => router.push('/(tabs)/home')}
+        >
           <Image source={icons.back} className="w-6 h-6" />
         </TouchableOpacity>
-        <Text className="text-black text-lg font-bold ml-4">Airtime</Text>
+        <View className="flex-1 items-center -ml-10">
+          <Text className="text-black text-lg font-bold">Electricity</Text>
+        </View>
       </View>
 
-      {/* Tab Selector */}
-      <View className="flex-row bg-gray-200 p-2 rounded-lg">
-        <TouchableOpacity className="flex-1 bg-white p-3 rounded-lg">
-          <Text className="text-black text-center">Local</Text>
-        </TouchableOpacity>
-        <TouchableOpacity className="flex-1 p-3 rounded-lg">
-          <Text className="text-gray-500 text-center">International</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Select Provider */}
-      <Text className="text-black text-lg font-bold mt-6">
-        Select Service Provider
-      </Text>
-      <View className="flex-row justify-between bg-white p-4 rounded-lg mt-2">
-        <Image source={icons.profile} className="w-14 h-14" />
-        <Image source={icons.profile} className="w-14 h-14" />
-        <Image source={icons.profile} className="w-14 h-14" />
-        <Image source={icons.profile} className="w-14 h-14" />
-      </View>
-
-      {/* Phone Number Input */}
-      <Text className="text-black text-lg font-bold mt-6">Phone Number</Text>
-      <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
-        <TextInput
-          className="flex-1 text-black text-lg"
-          placeholder="Enter phone number"
-        />
-        <Image source={icons.profile} className="w-6 h-6 text-gray-400" />
-      </View>
-
-      {/* Amount Input */}
-      <Text className="text-black text-lg font-bold mt-6">Amount</Text>
-      <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
-        <Text className="text-black text-lg">₦</Text>
-        <TextInput
-          className="flex-1 text-black text-lg ml-2"
-          placeholder="0.00"
-          keyboardType="numeric"
-        />
-      </View>
-
-      {/* Save as Beneficiary */}
-      <View className="bg-white p-4 rounded-lg mt-6 flex-row justify-between items-center">
-        <Text className="text-black text-lg font-bold">
-          Save as Beneficiary
+      <KeyboardAwareScrollView>
+        {/* Electricity Company */}
+        <Text className="text-black text-lg mt-6">
+          Select Electricity Company
         </Text>
-        <Switch
-          value={isBeneficiary}
-          onValueChange={setIsBeneficiary}
-          trackColor={{ true: '#007BFF', false: '#ccc' }}
-        />
-      </View>
+        <TouchableOpacity
+          onPress={() => setIsBillerModalVisible(true)}
+          className="bg-white p-4 rounded-lg mt-2"
+        >
+          <Text className="text-black text-base">
+            {selectedElectricCompany?.label ?? 'Tap to select a company'}
+          </Text>
+        </TouchableOpacity>
 
-      {/* Continue Button */}
-      <TouchableOpacity className="bg-[#007BFF] p-4 rounded-lg mt-6">
-        <Text className="text-white text-center text-lg font-bold">
-          Continue
-        </Text>
-      </TouchableOpacity>
+        {/* Modal */}
+        <Modal visible={isBillerModalVisible} transparent animationType="fade">
+          <TouchableWithoutFeedback
+            onPress={() => setIsBillerModalVisible(false)}
+          >
+            <View className="flex-1 justify-end bg-black/50">
+              <TouchableWithoutFeedback>
+                <View className="bg-white rounded-t-2xl p-4 max-h-[70%]">
+                  <View className="items-center mb-4">
+                    <View className="w-10 h-1 bg-black rounded-full" />
+                    <Text className="text-black font-bold text-lg mt-2">
+                      Select Biller
+                    </Text>
+                  </View>
+                  <ScrollView>
+                    {providerBillers.map((item, index) => (
+                      <TouchableOpacity
+                        key={index}
+                        className="flex-row justify-between items-center p-4 border-b border-gray-200"
+                        onPress={() => {
+                          setSelectedElectricCompany(item);
+                          setIsBillerModalVisible(false);
+                        }}
+                      >
+                        <Text className="text-black">{item.label}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </ScrollView>
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+
+        {/* Meter Number Input */}
+        <Text className="text-black text-lg font-bold mt-6">Meter Number</Text>
+        <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
+          <TextInput
+            className="flex-1 text-black text-lg"
+            placeholder="Enter meter number"
+            keyboardType="phone-pad"
+          />
+        </View>
+
+        {/* Amount Input */}
+        <Text className="text-black text-lg font-bold mt-6">Amount</Text>
+        <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
+          <Text className="text-black text-lg">₦</Text>
+          <TextInput
+            className="flex-1 text-black text-lg ml-2"
+            placeholder="0.00"
+            keyboardType="numeric"
+          />
+        </View>
+
+        {/* Save as Beneficiary */}
+        <View className="bg-white p-4 rounded-lg mt-6 flex-row justify-between items-center">
+          <Text className="text-black text-lg font-bold">
+            Save as Beneficiary
+          </Text>
+          <Switch
+            value={isBeneficiary}
+            onValueChange={setIsBeneficiary}
+            trackColor={{ true: '#007BFF', false: '#ccc' }}
+          />
+        </View>
+
+        {/* Continue Button */}
+        <TouchableOpacity className="bg-[#007BFF] p-4 rounded-lg mt-6">
+          <Text className="text-white text-center text-lg font-bold">
+            Continue
+          </Text>
+        </TouchableOpacity>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
-
-export default BuyElectricity;
+export default ElectricityScreen;
