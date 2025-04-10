@@ -25,16 +25,6 @@ const GiftUser = () => {
         <Text className="text-black text-lg font-bold ml-4">Airtime</Text>
       </View>
 
-      {/* Tab Selector */}
-      <View className="flex-row bg-gray-200 p-2 rounded-lg">
-        <TouchableOpacity className="flex-1 bg-white p-3 rounded-lg">
-          <Text className="text-black text-center">Local</Text>
-        </TouchableOpacity>
-        <TouchableOpacity className="flex-1 p-3 rounded-lg">
-          <Text className="text-gray-500 text-center">International</Text>
-        </TouchableOpacity>
-      </View>
-
       {/* Select Provider */}
       <Text className="text-black text-lg font-bold mt-6">
         Select Service Provider
