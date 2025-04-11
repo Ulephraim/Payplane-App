@@ -23,7 +23,7 @@ type InternetPackage = {
   price: string;
 };
 
-type ProviderKey = 'smile' | 'spectranet';
+type ProviderKey = 'spectranet';
 
 const InternetScreen = () => {
   const router = useRouter();
@@ -37,13 +37,6 @@ const InternetScreen = () => {
     useState<InternetPackage | null>(null);
 
   const providerPackages: Record<ProviderKey, InternetPackage[]> = {
-    smile: [
-      { label: 'Buy Airtime', price: '₦93.00' },
-      { label: '1GB FlexiDaily for 1days', price: '₦128.00' },
-      { label: '2.5GB FlexiDaily for 2days', price: '₦350.00' },
-      { label: '1.5GB Bigga for 30days', price: '₦500.00' },
-      { label: '2GB FlexiWeekly for 7days', price: '₦1000.00' },
-    ],
     spectranet: [
       { label: 'Buy Airtime', price: '₦903.00' },
       { label: '1GB FlexiDaily for 1days', price: '₦1298.00' },
@@ -59,7 +52,6 @@ const InternetScreen = () => {
   };
 
   const providerLogos: Record<ProviderKey, any> = {
-    smile: images.spectranetLogo,
     spectranet: images.spectranetLogo,
   };
 
@@ -81,7 +73,7 @@ const InternetScreen = () => {
       {/* Select Provider */}
       <KeyboardAwareScrollView>
         <View className="flex-row gap-2 bg-white p-4 rounded-lg mt-2">
-          {(['smile', 'spectranet'] as ProviderKey[]).map((provider) => (
+          {(['spectranet'] as ProviderKey[]).map((provider) => (
             <TouchableOpacity
               key={provider}
               onPress={() => handleProviderSelect(provider)}

@@ -63,15 +63,13 @@ const BettingScreen = () => {
           <Image source={icons.back} className="w-6 h-6" />
         </TouchableOpacity>
         <View className="flex-1 items-center -ml-10">
-          <Text className="text-black text-lg font-bold">Electricity</Text>
+          <Text className="text-black text-lg font-bold">Betting</Text>
         </View>
       </View>
 
       <KeyboardAwareScrollView>
         {/* Electricity Company */}
-        <Text className="text-black text-lg mt-6">
-          Select Electricity Company
-        </Text>
+        <Text className="text-black text-lg mt-6">Select Betting Company</Text>
         <TouchableOpacity
           onPress={() => setIsBetModalVisible(true)}
           className="bg-white p-4 rounded-lg mt-2"
@@ -118,7 +116,7 @@ const BettingScreen = () => {
         <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
           <TextInput
             className="flex-1 text-black text-lg"
-            placeholder="Enter meter number"
+            placeholder="Enter User ID"
             keyboardType="phone-pad"
           />
         </View>

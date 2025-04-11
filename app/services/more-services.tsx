@@ -52,9 +52,9 @@ const services: ServiceItem[] = [
   },
   {
     id: 8,
-    name: 'More',
-    icon: icons.more,
-    route: '/services/more-services',
+    name: 'Gift Card',
+    icon: icons.giftOutline,
+    route: '/services/gift-card',
   },
 ];
 

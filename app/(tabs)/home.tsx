@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ServiceItem from '../../components/ServiceItem';
 import { useAuth } from '@/context/authProvider';
 import ImageSlider from '@/components/ImageSlider';
+import { useRouter } from 'expo-router';
 
 const services: ServiceItem[] = [
   {
@@ -60,6 +61,7 @@ const services: ServiceItem[] = [
 ];
 
 const Home = () => {
+  const router = useRouter();
   const { userProfile } = useAuth();
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -155,7 +157,10 @@ const Home = () => {
             <Text className="text-black text-lg font-bold">Gift Card</Text>
             <Text className="text-gray-500">Buy gift cards instantly</Text>
           </View>
-          <TouchableOpacity className="bg-[#007BFF] py-2 px-4 rounded-full">
+          <TouchableOpacity
+            className="bg-[#007BFF] py-2 px-4 rounded-full"
+            onPress={() => router.push('/services/gift-card')}
+          >
             <Text className="text-white font-semibold">Buy now</Text>
           </TouchableOpacity>
         </View>

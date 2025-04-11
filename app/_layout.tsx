@@ -67,6 +67,10 @@ const RootLayout = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="services/gift-card"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="services/more-services"
           options={{ headerShown: false }}
         />
