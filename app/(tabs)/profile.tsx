@@ -72,10 +72,26 @@ export default function Profile() {
 
         {/* Sections */}
         <Section title="Account">
-          <ProfileItem icon={icons.profileUser} label="My Profile" />
-          <ProfileItem icon={icons.report} label="Reports" />
-          <ProfileItem icon={icons.send} label="Referrals" />
-          <ProfileItem icon={icons.customerCare} label="Help & Support" />
+          <ProfileItem
+            icon={icons.profileUser}
+            label="My Profile"
+            onPress={() => router.push('/(root)/profile')}
+          />
+          <ProfileItem
+            icon={icons.report}
+            label="Reports"
+            onPress={() => router.push('/(root)/reports')}
+          />
+          <ProfileItem
+            icon={icons.send}
+            label="Referrals"
+            onPress={() => router.push('/(root)/referrals')}
+          />
+          <ProfileItem
+            icon={icons.customerCare}
+            label="Help & Support"
+            onPress={() => router.push('/(root)/help-support')}
+          />
         </Section>
 
         <Section title="Preference">
@@ -100,16 +116,33 @@ export default function Profile() {
         </Section>
 
         <Section title="Privacy & Security">
-          <ProfileItem icon={icons.security} label="Reset Password" />
-          <ProfileItem icon={icons.secure} label="Reset Payplane PIN" />
-          <ProfileItem icon={icons.verified} label="Verify NIN" />
+          <ProfileItem
+            icon={icons.security}
+            label="Reset Password"
+            onPress={() => router.push('/(root)/reset-password')}
+          />
+          <ProfileItem
+            icon={icons.secure}
+            label="Reset Payplane PIN"
+            onPress={() => router.push('/(root)/reset-payplane-pin')}
+          />
+          <ProfileItem
+            icon={icons.verified}
+            label="Verify NIN"
+            onPress={() => router.push('/(root)/verify-nin')}
+          />
         </Section>
 
         <Section title="More">
-          <ProfileItem icon={icons.stamp} label="Legal" />
+          <ProfileItem
+            icon={icons.stamp}
+            label="Legal"
+            onPress={() => router.push('/(root)/legal')}
+          />
           <ProfileItem
             icon={icons.deleteBtn}
             label="Deactivate/Delete Account"
+            onPress={() => router.push('/(root)/delete-account')}
           />
           <ProfileItem
             icon={icons.logout}

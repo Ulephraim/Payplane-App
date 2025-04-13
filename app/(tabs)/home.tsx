@@ -77,7 +77,10 @@ const Home = () => {
     >
       {/* Header */}
       <View className="flex-row justify-between items-center mt-4 pb-4">
-        <View className="flex-row items-center">
+        <TouchableOpacity
+          className="flex-row items-center"
+          onPress={() => router.push('/(root)/profile')}
+        >
           <Image
             source={icons.avatar}
             resizeMode="contain"
@@ -90,7 +93,7 @@ const Home = () => {
               {userProfile?.firstName} {userProfile?.lastName}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
         <View className="flex-row gap-4 items-center">
           <TouchableOpacity
