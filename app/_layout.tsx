@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import '../global.css';
 import { SplashScreen, Stack } from 'expo-router';
 import { AuthProvider } from '@/context/authProvider';
+import { ThemeProvider } from '@/context/themeProvider';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -35,48 +36,53 @@ const RootLayout = () => {
   }
 
   return (
-    <AuthProvider>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        {/* Services Screens */}
-        <Stack.Screen
-          name="services/buy-airtime"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="services/buy-data"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="services/buy-electricity"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="services/buy-tv" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="services/buy-internet"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="services/buy-esim"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="services/buy-betting"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="services/gift-card"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="services/more-services"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          {/* Services Screens */}
+          <Stack.Screen
+            name="services/buy-airtime"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="services/buy-data"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="services/buy-electricity"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="services/buy-tv"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="services/buy-internet"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="services/buy-esim"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="services/buy-betting"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="services/gift-card"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="services/more-services"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

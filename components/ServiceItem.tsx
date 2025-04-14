@@ -8,6 +8,7 @@ import {
   ImageSourcePropType,
 } from 'react-native';
 import { Link } from 'expo-router';
+import { useTheme } from '@/context/themeProvider';
 
 type ServiceItem = {
   id: number;
@@ -21,6 +22,9 @@ type ServiceItemProps = {
 };
 
 const ServiceItem: React.FC<ServiceItemProps> = ({ item }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
     <Link href={item.route as any} asChild>
       <TouchableOpacity
@@ -29,9 +33,9 @@ const ServiceItem: React.FC<ServiceItemProps> = ({ item }) => {
       >
         <View
           style={{
+            backgroundColor: isDark ? '#374151' : '#f5f5f5',
             width: 54,
             height: 54,
-            backgroundColor: '#f5f5f5',
             borderRadius: 50,
             alignItems: 'center',
             justifyContent: 'center',
@@ -45,7 +49,7 @@ const ServiceItem: React.FC<ServiceItemProps> = ({ item }) => {
         </View>
         <Text
           style={{
-            color: 'black',
+            color: isDark ? 'white' : 'black',
             fontSize: 12,
             marginTop: 4,
             textAlign: 'center',

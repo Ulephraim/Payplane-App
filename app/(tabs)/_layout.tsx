@@ -4,6 +4,7 @@ import { View, Text, Image } from 'react-native';
 import React from 'react';
 import { Tabs } from 'expo-router';
 import icons from '../../constants/icons';
+import { useTheme } from '@/context/themeProvider';
 
 interface TabIconProps {
   icon: any;
@@ -42,6 +43,9 @@ const TabIcon: React.FC<TabIconProps> = ({
 };
 
 const TabsLayout = () => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
     <Tabs
       screenOptions={{
@@ -49,7 +53,7 @@ const TabsLayout = () => {
         tabBarActiveTintColor: '#007BFF',
         tabBarInactiveTintColor: '#6B6B6B',
         tabBarStyle: {
-          backgroundColor: '#FFFFFF',
+          backgroundColor: isDark ? 'black' : '#FFFFFF',
           borderTopColor: '#F5F5F5',
           height: 90,
           justifyContent: 'center',

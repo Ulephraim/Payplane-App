@@ -1,6 +1,13 @@
 /** @format */
 
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  StatusBar,
+} from 'react-native';
 import React from 'react';
 import icons from '../../constants/icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,6 +15,7 @@ import ServiceItem from '../../components/ServiceItem';
 import { useAuth } from '@/context/authProvider';
 import ImageSlider from '@/components/ImageSlider';
 import { useRouter } from 'expo-router';
+import { useTheme } from '@/context/themeProvider';
 
 const services: ServiceItem[] = [
   {
@@ -62,6 +70,10 @@ const services: ServiceItem[] = [
 
 const Home = () => {
   const router = useRouter();
+
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === 'dark';
+
   const { userProfile } = useAuth();
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -73,8 +85,12 @@ const Home = () => {
   return (
     <SafeAreaView
       edges={['top', 'left', 'right']}
-      className="flex-1 bg-[#F5F5F5]-100 px-4"
+      className={`flex-1 px-4 ${isDark ? 'bg-[#121212]' : 'bg-[#F5F5F5]'}`}
     >
+      <StatusBar
+        barStyle={isDark ? 'light-content' : 'dark-content'}
+        backgroundColor={isDark ? 'bg-[#121212]' : 'bg-[#F5F5F5]'}
+      />
       {/* Header */}
       <View className="flex-row justify-between items-center mt-4 pb-4">
         <TouchableOpacity
@@ -88,8 +104,18 @@ const Home = () => {
             className="w-12 h-12 rounded-full mr-3"
           />
           <View>
-            <Text className="text-gray-500 text-sm">{getGreeting()}</Text>
-            <Text className="text-black text-lg font-bold">
+            <Text
+              className={`${
+                isDark ? 'text-gray-300' : 'text-gray-500'
+              } text-sm`}
+            >
+              {getGreeting()}
+            </Text>
+            <Text
+              className={`${
+                isDark ? 'text-white' : 'text-black'
+              } text-lg font-bold`}
+            >
               {userProfile?.firstName} {userProfile?.lastName}
             </Text>
           </View>
@@ -97,24 +123,31 @@ const Home = () => {
 
         <View className="flex-row gap-4 items-center">
           <TouchableOpacity
-            className="bg-white rounded-full p-2"
-            activeOpacity={0.7}
+            className={`${
+              isDark ? 'bg-gray-800' : 'bg-white'
+            } rounded-full p-2`}
+            onPress={toggleTheme}
           >
             <Image
               source={icons.lightMode}
               resizeMode="contain"
               className="w-5 h-5"
+              style={{ tintColor: isDark ? '#fff' : '#000' }}
             />
           </TouchableOpacity>
 
           <TouchableOpacity
-            className="bg-white rounded-full p-2"
+            className={`${
+              isDark ? 'bg-gray-800' : 'bg-white'
+            }  rounded-full p-2`}
             activeOpacity={0.7}
+            onPress={() => router.push('/(root)/notification')}
           >
             <Image
               source={icons.bell}
               resizeMode="contain"
               className="w-5 h-5"
+              style={{ tintColor: isDark ? '#fff' : '#000' }}
             />
           </TouchableOpacity>
         </View>
@@ -135,13 +168,17 @@ const Home = () => {
           <View className="flex-row justify-between items-center">
             <Text className="text-white text-2xl font-bold mt-1">₦0.00</Text>
             <TouchableOpacity className="bg-white py-2 px-4 rounded-full mt-3 self-start">
-              <Text className="text-[#007BFF] font-semibold">Add Money</Text>
+              <Text className="text-black text-sm">Add Money</Text>
             </TouchableOpacity>
           </View>
         </View>
 
         {/* Services Grid */}
-        <View className="bg-white p-4 rounded-2xl mt-4">
+        <View
+          className={`${
+            isDark ? 'bg-gray-800' : 'bg-white'
+          } p-4 rounded-2xl mt-4`}
+        >
           <View className="flex-row flex-wrap justify-between">
             {services.map((item) => (
               <ServiceItem key={item.id} item={item} />
@@ -155,16 +192,28 @@ const Home = () => {
         </View>
 
         {/* Gift Card */}
-        <View className="bg-white p-4 rounded-2xl mt-4 flex-row items-center justify-between">
+        <View
+          className={`${
+            isDark ? 'bg-gray-800' : 'bg-white'
+          }  p-4 rounded-2xl mt-4 flex-row items-center justify-between`}
+        >
           <View>
-            <Text className="text-black text-lg font-bold">Gift Card</Text>
-            <Text className="text-gray-500">Buy gift cards instantly</Text>
+            <Text
+              className={`${
+                isDark ? 'text-white' : 'text-black'
+              } text-lg font-bold`}
+            >
+              Gift Card
+            </Text>
+            <Text className={`${isDark ? 'text-gray-300' : 'text-gray-500'} `}>
+              Buy gift cards instantly
+            </Text>
           </View>
           <TouchableOpacity
             className="bg-[#007BFF] py-2 px-4 rounded-full"
             onPress={() => router.push('/services/gift-card')}
           >
-            <Text className="text-white font-semibold">Buy now</Text>
+            <Text className="text-white text-sm">Buy now</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
