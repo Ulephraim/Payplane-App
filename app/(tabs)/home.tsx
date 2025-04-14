@@ -85,11 +85,11 @@ const Home = () => {
   return (
     <SafeAreaView
       edges={['top', 'left', 'right']}
-      className={`flex-1 px-4 ${isDark ? 'bg-[#121212]' : 'bg-[#F5F5F5]'}`}
+      className={`flex-1 px-4 ${isDark ? 'bg-[#141414]' : 'bg-[#F5F5F5]'}`}
     >
       <StatusBar
         barStyle={isDark ? 'light-content' : 'dark-content'}
-        backgroundColor={isDark ? 'bg-[#121212]' : 'bg-[#F5F5F5]'}
+        backgroundColor={isDark ? 'bg-[#141414]' : 'bg-[#F5F5F5]'}
       />
       {/* Header */}
       <View className="flex-row justify-between items-center mt-4 pb-4">
@@ -123,9 +123,7 @@ const Home = () => {
 
         <View className="flex-row gap-4 items-center">
           <TouchableOpacity
-            className={`${
-              isDark ? 'bg-gray-800' : 'bg-white'
-            } rounded-full p-2`}
+            className={`${isDark ? '#232323' : 'bg-white'} rounded-full p-2`}
             onPress={toggleTheme}
           >
             <Image
@@ -137,9 +135,7 @@ const Home = () => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            className={`${
-              isDark ? 'bg-gray-800' : 'bg-white'
-            }  rounded-full p-2`}
+            className={`${isDark ? '#232323' : 'bg-white'}  rounded-full p-2`}
             activeOpacity={0.7}
             onPress={() => router.push('/(root)/notification')}
           >
@@ -175,9 +171,7 @@ const Home = () => {
 
         {/* Services Grid */}
         <View
-          className={`${
-            isDark ? 'bg-gray-800' : 'bg-white'
-          } p-4 rounded-2xl mt-4`}
+          className={`${isDark ? '#1C1C1C' : 'bg-white'} p-4 rounded-2xl mt-4`}
         >
           <View className="flex-row flex-wrap justify-between">
             {services.map((item) => (
@@ -194,7 +188,7 @@ const Home = () => {
         {/* Gift Card */}
         <View
           className={`${
-            isDark ? 'bg-gray-800' : 'bg-white'
+            isDark ? 'bg-red' : 'bg-white'
           }  p-4 rounded-2xl mt-4 flex-row items-center justify-between`}
         >
           <View>

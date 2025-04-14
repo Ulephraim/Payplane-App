@@ -15,9 +15,12 @@ import icons from '../../constants/icons';
 import { useAuth } from '@/context/authProvider';
 import { useRouter } from 'expo-router';
 import LogoutModal from '@/components/LogoutModal';
+import { useTheme } from '@/context/themeProvider';
 
 export default function Profile() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const darkMode = theme === 'dark';
+
   const [biometrics, setBiometrics] = useState(false);
   const [walletBalance, setWalletBalance] = useState(false);
   const { userProfile, logout } = useAuth();
@@ -35,21 +38,47 @@ export default function Profile() {
     }
   };
 
-  return (
-    <SafeAreaView className="flex-1  bg-[#F5F5F5]">
-      <View className="pb-2">
-        <Text className="text-center text-xl font-bold my-4">Profile</Text>
-      </View>
-      <ScrollView className="px-4">
-        {/* Header */}
+  const bgColor = darkMode ? '#141414' : '#F5F5F5';
+  const cardColor = darkMode ? '#1C1C1C' : '#FFFFFF';
+  const textColor = darkMode ? 'white' : 'black';
+  const sectionTitleColor = darkMode ? 'white' : 'black';
+  const iconTintColor = darkMode ? 'white' : 'black';
+  const iconContainerColor = darkMode ? '#232323' : '#f5f5f5';
 
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: bgColor }}>
+      <View style={{ paddingBottom: 8 }}>
+        <Text
+          style={{
+            color: textColor,
+            textAlign: 'center',
+            fontSize: 20,
+            fontWeight: 'bold',
+            marginVertical: 16,
+          }}
+        >
+          Profile
+        </Text>
+      </View>
+
+      <ScrollView style={{ paddingHorizontal: 16 }}>
         {/* User Info */}
-        <View className="flex-row bg-white p-4  gap-4 rounded-lg items-center mb-4">
+        <View
+          style={{
+            flexDirection: 'row',
+            backgroundColor: cardColor,
+            padding: 16,
+            borderRadius: 12,
+            marginBottom: 16,
+            alignItems: 'center',
+            gap: 16,
+          }}
+        >
           <View
             style={{
               width: 54,
               height: 54,
-              backgroundColor: '#f5f5f5',
+              backgroundColor: darkMode ? '#232323' : '#f5f5f5',
               borderRadius: 50,
               alignItems: 'center',
               justifyContent: 'center',
@@ -58,104 +87,168 @@ export default function Profile() {
             <Image
               source={icons.profileUser}
               resizeMode="contain"
-              className="w-5 h-5"
+              style={{ width: 20, height: 20, tintColor: iconTintColor }}
             />
           </View>
-
           <View>
-            <Text className="text-lg font-bold">
+            <Text
+              style={{ color: textColor, fontSize: 18, fontWeight: 'bold' }}
+            >
               {userProfile?.firstName} {userProfile?.lastName}
             </Text>
-            <Text className="text-gray-500">{userProfile?.email}</Text>
+            <Text style={{ color: darkMode ? '#9CA3AF' : '#6B7280' }}>
+              {userProfile?.email}
+            </Text>
           </View>
         </View>
 
         {/* Sections */}
-        <Section title="Account">
+        <Section
+          title="Account"
+          titleColor={sectionTitleColor}
+          cardColor={cardColor}
+        >
           <ProfileItem
             icon={icons.profileUser}
             label="My Profile"
             onPress={() => router.push('/(root)/profile')}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
           <ProfileItem
             icon={icons.report}
             label="Reports"
             onPress={() => router.push('/(root)/reports')}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
           <ProfileItem
             icon={icons.send}
             label="Referrals"
             onPress={() => router.push('/(root)/referrals')}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
           <ProfileItem
             icon={icons.customerCare}
             label="Help & Support"
             onPress={() => router.push('/(root)/help-support')}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
         </Section>
 
-        <Section title="Preference">
+        <Section
+          title="Preference"
+          titleColor={sectionTitleColor}
+          cardColor={cardColor}
+        >
           <ToggleItem
             icon={icons.darkMode}
             label="Dark Mode"
             state={darkMode}
-            setState={setDarkMode}
+            setState={toggleTheme}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
           <ToggleItem
             icon={icons.biometrics}
             label="Biometrics"
             state={biometrics}
             setState={setBiometrics}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
           <ToggleItem
             icon={icons.wallet}
             label="Wallet Balance"
             state={walletBalance}
             setState={setWalletBalance}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
         </Section>
 
-        <Section title="Privacy & Security">
+        <Section
+          title="Privacy & Security"
+          titleColor={sectionTitleColor}
+          cardColor={cardColor}
+        >
           <ProfileItem
             icon={icons.security}
             label="Reset Password"
             onPress={() => router.push('/(root)/reset-password')}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
           <ProfileItem
             icon={icons.secure}
             label="Reset Payplane PIN"
             onPress={() => router.push('/(root)/reset-payplane-pin')}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
           <ProfileItem
             icon={icons.verified}
             label="Verify NIN"
             onPress={() => router.push('/(root)/verify-nin')}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
         </Section>
 
-        <Section title="More">
+        <Section
+          title="More"
+          titleColor={sectionTitleColor}
+          cardColor={cardColor}
+        >
           <ProfileItem
             icon={icons.stamp}
             label="Legal"
             onPress={() => router.push('/(root)/legal')}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
           <ProfileItem
             icon={icons.deleteBtn}
             label="Deactivate/Delete Account"
             onPress={() => router.push('/(root)/delete-account')}
+            tintColor={iconTintColor}
+            textColor={textColor}
+            iconContainerColor={iconContainerColor}
           />
           <ProfileItem
             icon={icons.logout}
             label="Logout"
-            textColor="text-red-500"
             onPress={() => setIsLogoutModalVisible(true)}
+            tintColor="red"
+            textColor="red"
           />
         </Section>
 
-        <Text className="text-center text-xl  my-10">version 1.0.0</Text>
+        <Text
+          style={{
+            color: sectionTitleColor,
+            textAlign: 'center',
+            fontSize: 16,
+            marginVertical: 24,
+          }}
+        >
+          version 1.0.0
+        </Text>
       </ScrollView>
 
-      {/* Logout Modal */}
       <LogoutModal
         visible={isLogoutModalVisible}
         onClose={() => setIsLogoutModalVisible(false)}
@@ -166,10 +259,21 @@ export default function Profile() {
 }
 
 // Section Component
-const Section = ({ title, children }: any) => (
-  <View className="mt-4">
-    <Text className="text-lg font-semibold text-gray-700 mb-2">{title}</Text>
-    <View className="bg-white rounded-lg p-3">{children}</View>
+const Section = ({ title, children, titleColor, cardColor }: any) => (
+  <View style={{ marginTop: 16 }}>
+    <Text
+      style={{
+        fontSize: 18,
+        fontWeight: '600',
+        color: titleColor,
+        marginBottom: 8,
+      }}
+    >
+      {title}
+    </Text>
+    <View style={{ backgroundColor: cardColor, borderRadius: 12, padding: 12 }}>
+      {children}
+    </View>
   </View>
 );
 
@@ -178,47 +282,78 @@ const ProfileItem = ({
   onPress,
   icon,
   label,
-  textColor = 'text-black',
+  tintColor,
+  textColor,
+  iconContainerColor,
 }: any) => (
   <TouchableOpacity
-    className="flex-row justify-between items-center py-3 px-2"
+    style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 12 }}
     onPress={onPress}
   >
     <View
       style={{
         width: 42,
         height: 42,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: iconContainerColor,
         borderRadius: 50,
         alignItems: 'center',
         justifyContent: 'center',
       }}
     >
-      <Image source={icon} resizeMode="contain" className="w-5 h-5" />
+      <Image
+        source={icon}
+        resizeMode="contain"
+        style={{ width: 20, height: 20, tintColor }}
+      />
     </View>
-
-    <Text className={`flex-1 ml-3 text-lg ${textColor}`}>{label}</Text>
-    <Image source={icons.rightArrow} resizeMode="contain" className="w-3 h-3" />
+    <Text style={{ flex: 1, marginLeft: 12, fontSize: 16, color: textColor }}>
+      {label}
+    </Text>
+    <Image
+      source={icons.rightArrow}
+      resizeMode="contain"
+      style={{ width: 12, height: 12, tintColor }}
+    />
   </TouchableOpacity>
 );
 
 // Toggle Item Component
-const ToggleItem = ({ icon, label, state, setState }: any) => (
-  <View className="flex-row justify-between items-center py-3 px-2">
+const ToggleItem = ({
+  icon,
+  label,
+  state,
+  setState,
+  tintColor,
+  textColor,
+  iconContainerColor,
+}: any) => (
+  <View
+    style={{
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: 12,
+    }}
+  >
     <View
       style={{
         width: 42,
         height: 42,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: iconContainerColor,
         borderRadius: 50,
         alignItems: 'center',
         justifyContent: 'center',
       }}
     >
-      <Image source={icon} resizeMode="contain" className="w-5 h-5" />
+      <Image
+        source={icon}
+        resizeMode="contain"
+        style={{ width: 20, height: 20, tintColor }}
+      />
     </View>
-
-    <Text className="flex-1 ml-3 text-lg">{label}</Text>
+    <Text style={{ flex: 1, marginLeft: 12, fontSize: 16, color: textColor }}>
+      {label}
+    </Text>
     <Switch
       value={state}
       onValueChange={setState}

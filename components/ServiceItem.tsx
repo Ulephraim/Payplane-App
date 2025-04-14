@@ -33,7 +33,7 @@ const ServiceItem: React.FC<ServiceItemProps> = ({ item }) => {
       >
         <View
           style={{
-            backgroundColor: isDark ? '#374151' : '#f5f5f5',
+            backgroundColor: isDark ? '#232323' : '#f5f5f5',
             width: 54,
             height: 54,
             borderRadius: 50,
