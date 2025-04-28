@@ -123,7 +123,9 @@ const Home = () => {
 
         <View className="flex-row gap-4 items-center">
           <TouchableOpacity
-            className={`${isDark ? '#232323' : 'bg-white'} rounded-full p-2`}
+            className={`${
+              isDark ? 'bg-[#232323]' : 'bg-white'
+            } rounded-full p-2`}
             onPress={toggleTheme}
           >
             <Image
@@ -135,7 +137,9 @@ const Home = () => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            className={`${isDark ? '#232323' : 'bg-white'}  rounded-full p-2`}
+            className={`${
+              isDark ? 'bg-[#232323]' : 'bg-white'
+            }  rounded-full p-2`}
             activeOpacity={0.7}
             onPress={() => router.push('/(root)/notification')}
           >
@@ -171,7 +175,9 @@ const Home = () => {
 
         {/* Services Grid */}
         <View
-          className={`${isDark ? '#1C1C1C' : 'bg-white'} p-4 rounded-2xl mt-4`}
+          className={`${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          } p-4 rounded-2xl mt-4`}
         >
           <View className="flex-row flex-wrap justify-between">
             {services.map((item) => (
@@ -188,7 +194,7 @@ const Home = () => {
         {/* Gift Card */}
         <View
           className={`${
-            isDark ? 'bg-red' : 'bg-white'
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
           }  p-4 rounded-2xl mt-4 flex-row items-center justify-between`}
         >
           <View>
