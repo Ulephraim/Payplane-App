@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '../../constants/icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useRouter } from 'expo-router';
+import { useTheme } from '@/context/themeProvider'; // <-- Added
 
 // Type for a biller
 type betcompanyProps = {
@@ -52,29 +53,48 @@ const BettingScreen = () => {
   const [selectedBetCompany, setSelectedBetCompany] =
     useState<betcompanyProps | null>(null);
 
+  const { theme } = useTheme(); // <-- Added
+  const isDark = theme === 'dark'; // <-- Added
+
   return (
-    <SafeAreaView className="flex-1 bg-[#F5F5F5] px-4">
+    <SafeAreaView
+      className={`flex-1 ${isDark ? 'bg-[#141414]' : 'bg-[#F5F5F5]'} px-4`}
+    >
       {/* Header */}
       <View className="flex-row items-center mt-4 pb-4">
         <TouchableOpacity
           className="w-10"
           onPress={() => router.push('/(tabs)/home')}
         >
-          <Image source={icons.back} className="w-6 h-6" />
+          <Image
+            source={icons.back}
+            className="w-6 h-6"
+            style={{ tintColor: isDark ? '#fff' : '#000' }}
+          />
         </TouchableOpacity>
         <View className="flex-1 items-center -ml-10">
-          <Text className="text-black text-lg font-bold">Betting</Text>
+          <Text
+            className={`text-lg font-bold ${
+              isDark ? 'text-white' : 'text-black'
+            }`}
+          >
+            Betting
+          </Text>
         </View>
       </View>
 
       <KeyboardAwareScrollView>
-        {/* Electricity Company */}
-        <Text className="text-black text-lg mt-6">Select Betting Company</Text>
+        {/* Select Betting Company */}
+        <Text
+          className={`text-lg mt-6 ${isDark ? 'text-white' : 'text-black'}`}
+        >
+          Select Betting Company
+        </Text>
         <TouchableOpacity
           onPress={() => setIsBetModalVisible(true)}
-          className="bg-white p-4 rounded-lg mt-2"
+          className={`${isDark ? 'bg-[#222]' : 'bg-white'} p-4 rounded-lg mt-2`}
         >
-          <Text className="text-black text-base">
+          <Text className={`${isDark ? 'text-white' : 'text-black'} text-base`}>
             {selectedBetCompany?.label ?? 'Tap to select a company'}
           </Text>
         </TouchableOpacity>
@@ -84,10 +104,22 @@ const BettingScreen = () => {
           <TouchableWithoutFeedback onPress={() => setIsBetModalVisible(false)}>
             <View className="flex-1 justify-end bg-black/50">
               <TouchableWithoutFeedback>
-                <View className="bg-white rounded-t-2xl p-4 max-h-[70%]">
+                <View
+                  className={`rounded-t-2xl p-4 max-h-[70%] ${
+                    isDark ? 'bg-[#222]' : 'bg-white'
+                  }`}
+                >
                   <View className="items-center mb-4">
-                    <View className="w-10 h-1 bg-black rounded-full" />
-                    <Text className="text-black font-bold text-lg mt-2">
+                    <View
+                      className={`w-10 h-1 ${
+                        isDark ? 'bg-white' : 'bg-black'
+                      } rounded-full`}
+                    />
+                    <Text
+                      className={`font-bold text-lg mt-2 ${
+                        isDark ? 'text-white' : 'text-black'
+                      }`}
+                    >
                       Select Biller
                     </Text>
                   </View>
@@ -95,13 +127,21 @@ const BettingScreen = () => {
                     {providerBillers.map((item, index) => (
                       <TouchableOpacity
                         key={index}
-                        className="flex-row justify-between items-center p-4 border-b border-gray-200"
+                        className={`flex-row justify-between items-center p-4 ${
+                          isDark
+                            ? 'border-b border-gray-700'
+                            : 'border-b border-gray-200'
+                        }`}
                         onPress={() => {
                           setSelectedBetCompany(item);
                           setIsBetModalVisible(false);
                         }}
                       >
-                        <Text className="text-black">{item.label}</Text>
+                        <Text
+                          className={`${isDark ? 'text-white' : 'text-black'}`}
+                        >
+                          {item.label}
+                        </Text>
                       </TouchableOpacity>
                     ))}
                   </ScrollView>
@@ -111,29 +151,54 @@ const BettingScreen = () => {
           </TouchableWithoutFeedback>
         </Modal>
 
-        {/* Meter Number Input */}
-        <Text className="text-black text-lg font-bold mt-6">User ID</Text>
-        <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
+        {/* User ID Input */}
+        <Text
+          className={`text-lg font-bold mt-6 ${
+            isDark ? 'text-white' : 'text-black'
+          }`}
+        >
+          User ID
+        </Text>
+        <View
+          className={`p-3 rounded-lg flex-row items-center mt-2 ${
+            isDark ? 'bg-[#222]' : 'bg-white'
+          }`}
+        >
           <TextInput
-            className="flex-1 text-black text-lg"
+            className={`flex-1 text-lg ${isDark ? 'text-white' : 'text-black'}`}
             placeholder="Enter User ID"
+            placeholderTextColor={isDark ? '#aaa' : '#888'}
             keyboardType="phone-pad"
           />
         </View>
 
-        {/* Amount Input */}
-        <Text className="text-black text-lg font-bold mt-6">
+        {/* Deposit Amount Input */}
+        <Text
+          className={`text-lg font-bold mt-6 ${
+            isDark ? 'text-white' : 'text-black'
+          }`}
+        >
           Deposit Amount
         </Text>
-        <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
-          <Text className="text-black text-lg">₦</Text>
+        <View
+          className={`p-3 rounded-lg flex-row items-center mt-2 ${
+            isDark ? 'bg-[#222]' : 'bg-white'
+          }`}
+        >
+          <Text className={`text-lg ${isDark ? 'text-white' : 'text-black'}`}>
+            ₦
+          </Text>
           <TextInput
-            className="flex-1 text-black text-lg ml-2"
+            className={`flex-1 text-lg ml-2 ${
+              isDark ? 'text-white' : 'text-black'
+            }`}
             placeholder="0.00"
+            placeholderTextColor={isDark ? '#aaa' : '#888'}
             keyboardType="numeric"
           />
         </View>
 
+        {/* Pay Button */}
         <TouchableOpacity className="bg-[#007BFF] p-4 rounded-lg mt-6">
           <Text className="text-white text-center text-lg font-bold">Pay</Text>
         </TouchableOpacity>
@@ -141,4 +206,5 @@ const BettingScreen = () => {
     </SafeAreaView>
   );
 };
+
 export default BettingScreen;

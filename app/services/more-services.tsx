@@ -1,11 +1,12 @@
 /** @format */
 
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '../../constants/icons';
 import { useRouter } from 'expo-router';
 import ServiceItem from '@/components/ServiceItem';
+import { useTheme } from '@/context/themeProvider';
 
 const services: ServiceItem[] = [
   {
@@ -63,25 +64,49 @@ const lifestyleServices = services.slice(4); // Next four
 
 const MoreServices = () => {
   const router = useRouter();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
-    <SafeAreaView className="flex-1 bg-[#F5F5F5] px-4">
+    <SafeAreaView
+      className={`flex-1 ${isDark ? 'bg-[#141414]' : 'bg-[#F5F5F5]'} px-4`}
+    >
       {/* Header */}
       <View className="flex-row items-center mt-4 pb-4">
         <TouchableOpacity
           className="w-10"
           onPress={() => router.push('/(tabs)/home')}
         >
-          <Image source={icons.back} className="w-6 h-6" />
+          <Image
+            source={icons.back}
+            className="w-6 h-6"
+            style={{ tintColor: isDark ? '#fff' : '#000' }}
+          />
         </TouchableOpacity>
         <View className="flex-1 items-center -ml-10">
-          <Text className="text-black text-lg font-bold">All Services</Text>
+          <Text
+            className={`text-lg font-bold ${
+              isDark ? 'text-white' : 'text-black'
+            }`}
+          >
+            All Services
+          </Text>
         </View>
       </View>
 
       {/* Bills Payment Section */}
-      <View className="bg-white p-4 rounded-2xl mt-4">
-        <Text className="text-black text-lg mb-2 ml-4">Bills Payment</Text>
+      <View
+        className={`p-4 rounded-2xl mt-4 ${
+          isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+        }`}
+      >
+        <Text
+          className={`text-lg mb-2 ml-4 ${
+            isDark ? 'text-white' : 'text-black'
+          }`}
+        >
+          Bills Payment
+        </Text>
         <View className="flex-row flex-wrap justify-between">
           {billsServices.map((item) => (
             <ServiceItem key={item.id} item={item} />
@@ -90,8 +115,18 @@ const MoreServices = () => {
       </View>
 
       {/* Lifestyle Section */}
-      <View className="bg-white p-4 rounded-2xl mt-4">
-        <Text className="text-black text-lg mb-2 ml-4">Lifestyle</Text>
+      <View
+        className={`p-4 rounded-2xl mt-4 ${
+          isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+        }`}
+      >
+        <Text
+          className={`text-lg mb-2 ml-4 ${
+            isDark ? 'text-white' : 'text-black'
+          }`}
+        >
+          Lifestyle
+        </Text>
         <View className="flex-row flex-wrap justify-between">
           {lifestyleServices.map((item) => (
             <ServiceItem key={item.id} item={item} />
