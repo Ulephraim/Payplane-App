@@ -1,5 +1,4 @@
 /** @format */
-
 import {
   View,
   Text,
@@ -14,6 +13,7 @@ import { useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import icons from '../../constants/icons';
 import images from '@/constants/images';
+import { useTheme } from '@/context/themeProvider'; // Import the theme hook
 
 type ProviderKey = 'dstv' | 'gotv' | 'startimes' | 'showmax';
 
@@ -23,6 +23,8 @@ const CableTvScreen = () => {
   const [selectedProvider, setSelectedProvider] = useState<ProviderKey | null>(
     null
   );
+  const { theme } = useTheme(); // Get the current theme
+  const isDark = theme === 'dark'; // Boolean for dark mode check
 
   const handleProviderSelect = (provider: ProviderKey) => {
     setSelectedProvider(provider);
@@ -36,24 +38,44 @@ const CableTvScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[#F5F5F5] px-4">
+    <SafeAreaView
+      className={`flex-1 ${isDark ? 'bg-[#141414]' : 'bg-[#F5F5F5]'} px-4`}
+    >
       {/* Header */}
       <View className="flex-row items-center mt-4 pb-4">
         <TouchableOpacity
           className="w-10"
           onPress={() => router.push('/(tabs)/home')}
         >
-          <Image source={icons.back} className="w-6 h-6" />
+          <Image
+            source={icons.back}
+            className="w-6 h-6"
+            style={{ tintColor: isDark ? '#fff' : '#000' }}
+          />
         </TouchableOpacity>
         <View className="flex-1 items-center -ml-10">
-          <Text className="text-black text-lg font-bold">Cable TV</Text>
+          <Text
+            className={`text-lg font-bold ${
+              isDark ? 'text-white' : 'text-black'
+            }`}
+          >
+            Cable TV
+          </Text>
         </View>
       </View>
 
       <KeyboardAwareScrollView>
         {/* Provider Selection */}
-        <Text className="text-black text-lg mt-6">Select service provider</Text>
-        <View className="flex-row justify-between bg-white p-4 rounded-lg mt-2">
+        <Text
+          className={`text-lg mt-6 ${isDark ? 'text-white' : 'text-black'}`}
+        >
+          Select service provider
+        </Text>
+        <View
+          className={`flex-row justify-between p-4 rounded-lg mt-2 ${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          }`}
+        >
           {(['dstv', 'gotv', 'startimes', 'showmax'] as ProviderKey[]).map(
             (provider) => (
               <TouchableOpacity
@@ -78,18 +100,33 @@ const CableTvScreen = () => {
         </View>
 
         {/* Smart Card Number */}
-        <Text className="text-black text-lg mt-6">Smart Card Number</Text>
-        <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
+        <Text
+          className={`text-lg mt-6 ${isDark ? 'text-white' : 'text-black'}`}
+        >
+          Smart Card Number
+        </Text>
+        <View
+          className={`p-3 rounded-lg flex-row items-center mt-2 ${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          }`}
+        >
           <TextInput
-            className="flex-1 text-black text-lg"
+            className={`flex-1 text-lg ${isDark ? 'text-white' : 'text-black'}`}
             placeholder="Enter smart card number"
+            placeholderTextColor={isDark ? '#A0A0A0' : '#888'}
           />
           <Text style={{ color: '#007BFF' }}>Verify</Text>
         </View>
 
         {/* Save as Beneficiary */}
-        <View className="bg-white p-4 rounded-lg mt-6 flex-row justify-between items-center">
-          <Text className="text-black text-lg">Save as Beneficiary</Text>
+        <View
+          className={`p-4 rounded-lg mt-6 flex-row justify-between items-center ${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          }`}
+        >
+          <Text className={`text-lg ${isDark ? 'text-white' : 'text-black'}`}>
+            Save as Beneficiary
+          </Text>
           <Switch
             value={isBeneficiary}
             onValueChange={setIsBeneficiary}
