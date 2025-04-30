@@ -6,7 +6,6 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
-  Switch,
   TouchableWithoutFeedback,
   Modal,
   ScrollView,
@@ -16,7 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '../../constants/icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useRouter } from 'expo-router';
-import { useTheme } from '@/context/themeProvider'; // <-- Added
+import { useTheme } from '@/context/themeProvider';
 
 // Type for a biller
 type betcompanyProps = {
@@ -53,8 +52,8 @@ const BettingScreen = () => {
   const [selectedBetCompany, setSelectedBetCompany] =
     useState<betcompanyProps | null>(null);
 
-  const { theme } = useTheme(); // <-- Added
-  const isDark = theme === 'dark'; // <-- Added
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
     <SafeAreaView

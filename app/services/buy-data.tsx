@@ -20,6 +20,7 @@ import images from '@/constants/images';
 
 import * as Contacts from 'expo-contacts';
 import { Alert } from 'react-native';
+import { useTheme } from '@/context/themeProvider';
 
 const getContacts = async () => {
   const { status } = await Contacts.requestPermissionsAsync();
@@ -30,7 +31,7 @@ const getContacts = async () => {
     });
 
     if (data.length > 0) {
-      // Pick the first one for now (you can build a picker UI later)
+      // Pick the first one for now
       const contact = data[0];
 
       // Extract and use the number
@@ -53,6 +54,9 @@ type ProviderKey = 'mtn' | 'airtel' | 'glo' | '9mobile';
 
 const AirtimeScreen = () => {
   const router = useRouter();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   const [isBeneficiary, setIsBeneficiary] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<ProviderKey | null>(
     null
@@ -104,24 +108,44 @@ const AirtimeScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[#F5F5F5] px-4">
+    <SafeAreaView
+      className={`flex-1  ${isDark ? 'bg-[#141414]' : 'bg-[#F5F5F5]'} px-4`}
+    >
       {/* Header */}
       <View className="flex-row items-center mt-4 pb-4">
         <TouchableOpacity
           className="w-10"
           onPress={() => router.push('/(tabs)/home')}
         >
-          <Image source={icons.back} className="w-6 h-6" />
+          <Image
+            source={icons.back}
+            className="w-6 h-6"
+            style={{ tintColor: isDark ? '#fff' : '#000' }}
+          />
         </TouchableOpacity>
         <View className="flex-1 items-center -ml-10">
-          <Text className="text-black text-lg font-bold">Data Bundle</Text>
+          <Text
+            className={`text-lg font-bold ${
+              isDark ? 'text-white' : 'text-black'
+            }`}
+          >
+            Data Bundle
+          </Text>
         </View>
       </View>
 
       {/* Select Provider */}
       <KeyboardAwareScrollView>
-        <Text className="text-black text-lg mt-6">Select service provider</Text>
-        <View className="flex-row justify-between bg-white p-4 rounded-lg mt-2">
+        <Text
+          className={`text-lg mt-6 ${isDark ? 'text-white' : 'text-black'}`}
+        >
+          Select service provider
+        </Text>
+        <View
+          className={`${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          } flex-row justify-between p-4 rounded-lg mt-2`}
+        >
           {(['mtn', 'airtel', 'glo', '9mobile'] as ProviderKey[]).map(
             (provider) => (
               <TouchableOpacity
@@ -146,14 +170,19 @@ const AirtimeScreen = () => {
         </View>
 
         {/* Select Data Package */}
-        <Text className="text-black text-lg font-bold mt-6">
+        <Text
+          className={`${
+            isDark ? 'text-white' : 'text-black'
+          }  text-lg font-bold mt-6`}
+        >
           Select data package
         </Text>
         <TouchableOpacity
           onPress={() => setIsPackageModalVisible(true)}
-          className="bg-white p-4 rounded-lg mt-2"
+          className={`${isDark ? 'bg-[#1C1C1C]' : 'bg-white'}
+          p-4 rounded-lg mt-2`}
         >
-          <Text className="text-black text-base">
+          <Text className={`${isDark ? 'text-white' : 'text-black'} text-base`}>
             {selectedPackage
               ? selectedPackage.label
               : 'Tap to select a package'}
@@ -167,10 +196,22 @@ const AirtimeScreen = () => {
           >
             <View className="flex-1 justify-end bg-black/50">
               <TouchableWithoutFeedback>
-                <View className="bg-white rounded-t-2xl p-4 max-h-[70%]">
+                <View
+                  className={`${
+                    isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+                  }  rounded-t-2xl p-4 max-h-[70%]`}
+                >
                   <View className="items-center mb-4">
-                    <View className="w-10 h-1 bg-black rounded-full" />
-                    <Text className="text-black font-bold text-lg mt-2">
+                    <View
+                      className={`
+                      ${isDark ? 'bg-white' : 'bg-black'}
+                      w-10 h-1  rounded-full`}
+                    />
+                    <Text
+                      className={` ${
+                        isDark ? 'text-white' : 'text-black'
+                      } font-bold text-lg mt-2`}
+                    >
                       Select Package
                     </Text>
                   </View>
@@ -184,8 +225,16 @@ const AirtimeScreen = () => {
                           setIsPackageModalVisible(false);
                         }}
                       >
-                        <Text className="text-black">{item.label}</Text>
-                        <Text className="text-black">{item.price}</Text>
+                        <Text
+                          className={`${isDark ? 'text-white' : 'text-black'}`}
+                        >
+                          {item.label}
+                        </Text>
+                        <Text
+                          className={`${isDark ? 'text-white' : 'text-black'}`}
+                        >
+                          {item.price}
+                        </Text>
                       </TouchableOpacity>
                     ))}
                   </ScrollView>
@@ -196,10 +245,20 @@ const AirtimeScreen = () => {
         </Modal>
 
         {/* Phone Number Input */}
-        <Text className="text-black text-lg font-bold mt-6">Phone Number</Text>
-        <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
+        <Text
+          className={`${
+            isDark ? 'text-white' : 'text-black'
+          } text-lg font-bold mt-6`}
+        >
+          Phone Number
+        </Text>
+        <View
+          className={`${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          } p-3 rounded-lg flex-row items-center mt-2`}
+        >
           <TextInput
-            className="flex-1 text-black text-lg"
+            className={`flex-1 text-lg ${isDark ? 'text-white' : 'text-black'}`}
             placeholder="Enter phone number"
             keyboardType="phone-pad"
           />
@@ -212,19 +271,41 @@ const AirtimeScreen = () => {
         </View>
 
         {/* Amount Input */}
-        <Text className="text-black text-lg font-bold mt-6">Amount</Text>
-        <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
-          <Text className="text-black text-lg">₦</Text>
+        <Text
+          className={`${
+            isDark ? 'text-white' : 'text-black'
+          } text-lg font-bold mt-6`}
+        >
+          Amount
+        </Text>
+        <View
+          className={`${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          } p-3 rounded-lg flex-row items-center mt-2`}
+        >
+          <Text className={`${isDark ? 'text-white' : 'text-black'}  text-lg`}>
+            ₦
+          </Text>
           <TextInput
-            className="flex-1 text-black text-lg ml-2"
+            className={`${
+              isDark ? 'text-white' : 'text-black'
+            } flex-1 text-lg ml-2`}
             placeholder="0.00"
             keyboardType="numeric"
           />
         </View>
 
         {/* Save Beneficiary */}
-        <View className="bg-white p-4 rounded-lg mt-6 flex-row justify-between items-center">
-          <Text className="text-black text-lg font-bold">
+
+        <View
+          className={`${isDark ? 'bg-[#1C1C1C]' : 'bg-white'}
+        p-4 rounded-lg mt-6 flex-row justify-between items-center`}
+        >
+          <Text
+            className={`${
+              isDark ? 'text-white' : 'text-black'
+            } text-lg font-bold`}
+          >
             Save as Beneficiary
           </Text>
           <Switch

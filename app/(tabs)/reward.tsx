@@ -86,9 +86,8 @@ const Reward = () => {
 
       {/* Share Invitation Code */}
       <View
-        className={`
-        ${isDark ? 'bg-[#1C1C1C]' : 'bg-white'}
-        bg-white p-4 rounded-xl mt-6`}
+        className={`${isDark ? 'bg-[#1C1C1C]' : 'bg-white'}
+       p-4 rounded-xl mt-6`}
       >
         <Text
           className={`${
