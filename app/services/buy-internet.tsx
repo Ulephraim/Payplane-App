@@ -17,6 +17,7 @@ import { useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import icons from '../../constants/icons';
 import images from '@/constants/images';
+import { useTheme } from '@/context/themeProvider';
 
 type InternetPackage = {
   label: string;
@@ -27,6 +28,9 @@ type ProviderKey = 'spectranet';
 
 const InternetScreen = () => {
   const router = useRouter();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   const [isBeneficiary, setIsBeneficiary] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<ProviderKey | null>(
     null
@@ -56,23 +60,39 @@ const InternetScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[#F5F5F5] px-4">
+    <SafeAreaView
+      className={`flex-1 ${isDark ? 'bg-[#141414]' : 'bg-[#F5F5F5]'} px-4`}
+    >
       {/* Header */}
       <View className="flex-row items-center mt-4 pb-4">
         <TouchableOpacity
           className="w-10"
           onPress={() => router.push('/(tabs)/home')}
         >
-          <Image source={icons.back} className="w-6 h-6" />
+          <Image
+            source={icons.back}
+            className="w-6 h-6"
+            style={{ tintColor: isDark ? '#fff' : '#000' }}
+          />
         </TouchableOpacity>
         <View className="flex-1 items-center -ml-10">
-          <Text className="text-black text-lg font-bold">Internet</Text>
+          <Text
+            className={`text-lg font-bold ${
+              isDark ? 'text-white' : 'text-black'
+            }`}
+          >
+            Internet
+          </Text>
         </View>
       </View>
 
       {/* Select Provider */}
       <KeyboardAwareScrollView>
-        <View className="flex-row gap-2 bg-white p-4 rounded-lg mt-2">
+        <View
+          className={`${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          } flex-row gap-2 p-4 rounded-lg mt-2`}
+        >
           {(['spectranet'] as ProviderKey[]).map((provider) => (
             <TouchableOpacity
               key={provider}
@@ -94,21 +114,39 @@ const InternetScreen = () => {
           ))}
         </View>
 
-        <Text className="text-black text-sm  mt-6">ACCOUNT ID / User ID</Text>
-        <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
+        <Text
+          className={`${isDark ? 'text-white' : 'text-black'} text-sm  mt-6`}
+        >
+          ACCOUNT ID / User ID
+        </Text>
+        <View
+          className={`${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          }  p-3 rounded-lg flex-row items-center mt-2`}
+        >
           <TextInput
-            className="flex-1 text-black text-lg ml-2"
+            className={`${
+              isDark ? 'text-white' : 'text-black'
+            } flex-1 text-lg ml-2`}
             keyboardType="numeric"
           />
         </View>
 
         {/* Select Data Package */}
-        <Text className="text-black text-lg  mt-6">Select Package</Text>
+        <Text
+          className={`${isDark ? 'text-white' : 'text-black'} text-lg  mt-6`}
+        >
+          Select Package
+        </Text>
         <TouchableOpacity
           onPress={() => setIsPackageModalVisible(true)}
-          className="bg-white p-4 rounded-lg mt-2"
+          className={`${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          } p-4 rounded-lg mt-2`}
         >
-          <Text className="text-black text-base">
+          <Text
+            className={`${isDark ? 'text-white' : 'text-black'}  text-base`}
+          >
             {selectedPackage
               ? selectedPackage.label
               : 'Tap to select a package'}
@@ -122,10 +160,22 @@ const InternetScreen = () => {
           >
             <View className="flex-1 justify-end bg-black/50">
               <TouchableWithoutFeedback>
-                <View className="bg-white rounded-t-2xl p-4 max-h-[70%]">
+                <View
+                  className={`${
+                    isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+                  } rounded-t-2xl p-4 max-h-[70%]`}
+                >
                   <View className="items-center mb-4">
-                    <View className="w-10 h-1 bg-black rounded-full" />
-                    <Text className="text-black font-bold text-lg mt-2">
+                    <View
+                      className={`w-10 h-1 ${
+                        isDark ? 'bg-white' : 'bg-black'
+                      } rounded-full`}
+                    />
+                    <Text
+                      className={`${
+                        isDark ? 'text-white' : 'text-black'
+                      } font-bold text-lg mt-2`}
+                    >
                       Select Package
                     </Text>
                   </View>
@@ -139,8 +189,16 @@ const InternetScreen = () => {
                           setIsPackageModalVisible(false);
                         }}
                       >
-                        <Text className="text-black">{item.label}</Text>
-                        <Text className="text-black">{item.price}</Text>
+                        <Text
+                          className={`${isDark ? 'text-white' : 'text-black'}`}
+                        >
+                          {item.label}
+                        </Text>
+                        <Text
+                          className={`${isDark ? 'text-white' : 'text-black'}`}
+                        >
+                          {item.price}
+                        </Text>
                       </TouchableOpacity>
                     ))}
                   </ScrollView>
@@ -151,19 +209,41 @@ const InternetScreen = () => {
         </Modal>
 
         {/* Amount Input */}
-        <Text className="text-black text-lg  mt-6">Amount</Text>
-        <View className="bg-white p-3 rounded-lg flex-row items-center mt-2">
-          <Text className="text-black text-lg">₦</Text>
+        <Text
+          className={`${
+            isDark ? 'text-white' : 'text-black'
+          } text-lg font-bold mt-6`}
+        >
+          Amount
+        </Text>
+        <View
+          className={`${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          } p-3 rounded-lg flex-row items-center mt-2`}
+        >
+          <Text className={`${isDark ? 'text-white' : 'text-black'} text-lg`}>
+            ₦
+          </Text>
           <TextInput
-            className="flex-1 text-black text-lg ml-2"
+            className={`${
+              isDark ? 'text-white' : 'text-black'
+            } flex-1 text-lg ml-2`}
             placeholder="0.00"
             keyboardType="numeric"
           />
         </View>
 
         {/* Save Beneficiary */}
-        <View className="bg-white p-4 rounded-lg mt-6 flex-row justify-between items-center">
-          <Text className="text-black text-lg font-bold">
+        <View
+          className={`${
+            isDark ? 'bg-[#1C1C1C]' : 'bg-white'
+          } p-4 rounded-lg mt-6 flex-row justify-between items-center`}
+        >
+          <Text
+            className={`${
+              isDark ? 'text-white' : 'text-black'
+            } text-lg font-bold`}
+          >
             Save as Beneficiary
           </Text>
           <Switch
